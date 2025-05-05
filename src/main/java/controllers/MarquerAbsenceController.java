@@ -5,8 +5,10 @@ import Gestion.services.ServiceAbsence;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import java.sql.Date;
 import java.time.LocalDate;
+import javafx.stage.Stage; // Added import for Stage
 
 public class MarquerAbsenceController {
 
@@ -43,31 +45,41 @@ public class MarquerAbsenceController {
 
     @FXML
     public void initialize() {
-        serviceAbsence = new ServiceAbsence();
+        try {
+            serviceAbsence = new ServiceAbsence();
+            tableAbsence.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+            colEmpId.setCellValueFactory(cellData -> new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getEmployeId()).asObject());
+            colDate.setCellValueFactory(cellData -> new javafx.beans.property.SimpleObjectProperty<>(cellData.getValue().getDateAbsence()));
+            colMotif.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getMotif()));
+            colJustifie.setCellValueFactory(cellData -> new javafx.beans.property.SimpleBooleanProperty(cellData.getValue().isJustifie()).asObject());
+            rafraichirAbsence();
+            tableAbsence.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+                if (newSelection != null) {
+                    employeIdField.setText(String.valueOf(newSelection.getEmployeId()));
+                    dateAbsencePicker.setValue(newSelection.getDateAbsence() != null ? newSelection.getDateAbsence().toLocalDate() : null);
+                    motifField.setText(newSelection.getMotif() != null ? newSelection.getMotif() : "");
+                    justifieCheckBox.setSelected(newSelection.isJustifie());
+                } else {
+                    clearFields();
+                }
+            });
+        } catch (Exception e) {
+            showAlert("Erreur d'initialisation", "Erreur lors de l'initialisation : " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
-        // Enable single selection in TableView
-        tableAbsence.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
-        // Configure table columns
-        colEmpId.setCellValueFactory(cellData -> new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getEmployeId()).asObject());
-        colDate.setCellValueFactory(cellData -> new javafx.beans.property.SimpleObjectProperty<>(cellData.getValue().getDateAbsence()));
-        colMotif.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getMotif()));
-        colJustifie.setCellValueFactory(cellData -> new javafx.beans.property.SimpleBooleanProperty(cellData.getValue().isJustifie()).asObject());
-
-        // Load data into table without showing success banner
-        rafraichirAbsence();
-
-        // Add listener to pre-fill fields when a row is selected
-        tableAbsence.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                employeIdField.setText(String.valueOf(newSelection.getEmployeId()));
-                dateAbsencePicker.setValue(newSelection.getDateAbsence() != null ? newSelection.getDateAbsence().toLocalDate() : null);
-                motifField.setText(newSelection.getMotif() != null ? newSelection.getMotif() : "");
-                justifieCheckBox.setSelected(newSelection.isJustifie());
+    private void setStageIcon(Stage stage) {
+        try {
+            Image icon = new Image(getClass().getResourceAsStream("/images/app-icon.png"));
+            if (icon.isError()) {
+                System.err.println("Icon loading failed: Image is invalid.");
             } else {
-                clearFields();
+                stage.getIcons().add(icon);
             }
-        });
+        } catch (Exception e) {
+            System.err.println("Failed to load icon: " + e.getMessage());
+        }
     }
 
     @FXML
@@ -84,7 +96,6 @@ public class MarquerAbsenceController {
             Absence absence = new Absence(0, employeId, dateAbsence, motif, justifie);
             serviceAbsence.ajouter(absence);
 
-            // Refresh table and clear fields
             rafraichirAbsence();
             clearFields();
         } catch (Exception e) {
@@ -103,7 +114,6 @@ public class MarquerAbsenceController {
             return;
         }
 
-        // Confirm modification with the user
         Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmAlert.setTitle("Confirmation");
         confirmAlert.setHeaderText("Modifier l'absence");
@@ -121,7 +131,6 @@ public class MarquerAbsenceController {
             Absence updatedAbsence = new Absence(selectedAbsence.getId(), employeId, dateAbsence, motif, justifie);
             serviceAbsence.modifier(updatedAbsence);
 
-            // Refresh table and clear fields
             rafraichirAbsence();
             clearFields();
         } catch (Exception e) {
@@ -137,7 +146,6 @@ public class MarquerAbsenceController {
             return;
         }
 
-        // Confirm deletion with the user
         Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmAlert.setTitle("Confirmation");
         confirmAlert.setHeaderText("Supprimer l'absence");
@@ -158,23 +166,18 @@ public class MarquerAbsenceController {
     @FXML
     public void rafraichirAbsence() {
         try {
-            // Clear current items to force a refresh
             tableAbsence.getItems().clear();
-            // Fetch fresh data from the database
             tableAbsence.setItems(FXCollections.observableArrayList(serviceAbsence.afficher()));
-            // Show success banner only for manual refresh (via Rafraîchir button)
             if (isManualRefresh) {
                 showAlert("Succès", "La liste des absences a été rafraîchie avec succès.");
             }
         } catch (Exception e) {
             showAlert("Erreur", "Erreur lors du rafraîchissement des absences : " + e.getMessage());
         } finally {
-            // Reset the flag after each refresh
             isManualRefresh = false;
         }
     }
 
-    // Wrapper method for the Rafraîchir button to set the flag
     @FXML
     public void onRafraichirButtonClicked() {
         isManualRefresh = true;
@@ -182,7 +185,6 @@ public class MarquerAbsenceController {
     }
 
     private boolean validateInputs() {
-        // Check if employeIdField is empty or not a valid integer
         String employeIdText = employeIdField.getText();
         if (employeIdText == null || employeIdText.trim().isEmpty()) {
             showAlert("Champ manquant", "L'ID de l'employé est requis.");
@@ -199,14 +201,12 @@ public class MarquerAbsenceController {
             return false;
         }
 
-        // Check if dateAbsencePicker is empty
         LocalDate dateAbsence = dateAbsencePicker.getValue();
         if (dateAbsence == null) {
             showAlert("Champ manquant", "La date d'absence est requise.");
             return false;
         }
 
-        // Check if motifField is empty
         String motif = motifField.getText();
         if (motif == null || motif.trim().isEmpty()) {
             showAlert("Champ manquant", "Le motif est requis.");
