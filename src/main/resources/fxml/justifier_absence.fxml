@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.JustifierAbsenceController" prefWidth="440" prefHeight="650" style="-fx-background-color: #F5F7FA;">
+    <stylesheets>
+        <URL value="@../css/main_styles.css" />
+    </stylesheets>
+    <VBox spacing="10" alignment="TOP_CENTER" layoutX="20" layoutY="20">
+        <Label text="Vos absences en cours" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #1A3C5A;" />
+        <HBox spacing="10" alignment="CENTER">
+            <TableView fx:id="tableAbsence" prefWidth="350" styleClass="table-view">
+                <columns>
+                    <TableColumn text="Employé ID" fx:id="colEmpId" prefWidth="80" />
+                    <TableColumn text="Date Absence" fx:id="colDateAbsence" prefWidth="100" />
+                    <TableColumn text="Motif" fx:id="colMotif" prefWidth="80" />
+                    <TableColumn text="Justifiée?" fx:id="colJustifie" prefWidth="60" />
+                </columns>
+            </TableView>
+        </HBox>
+        <HBox spacing="10" alignment="CENTER">
+            <Button fx:id="uploadButton" text="Déposer votre certificat" onAction="#chooseImage" styleClass="button" />
+            <Button fx:id="justifyButton" text="Justifier ton absence" onAction="#justifyAbsence" disable="true" styleClass="button green" />
+        </HBox>
+    </VBox>
+</AnchorPane>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<?import java.awt.TextField?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.MarquerAbsenceController" prefWidth="440" prefHeight="650" style="-fx-background-color: #F5F7FA;">
+    <stylesheets>
+        <URL value="@../css/main_styles.css" />
+    </stylesheets>
+    <VBox alignment="CENTER" spacing="15" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0">
+        <Label text="Ajouter une absence" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #1A3C5A;" />
+        <TextField fx:id="employeIdField" promptText="ID Employé" prefWidth="200" />
+        <DatePicker fx:id="dateAbsencePicker" promptText="Date d'absence" prefWidth="200" />
+        <TextField fx:id="motifField" promptText="Motif" prefWidth="200" />
+        <CheckBox fx:id="justifieCheckBox" text="Justifiée?" />
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="Ajouter Absence" onAction="#ajouterAbsence" styleClass="button green" prefWidth="120" />
+            <Button text="Modifier Absence" onAction="#modifierAbsence" styleClass="button" prefWidth="120" />
+            <Button text="Supprimer Absence" onAction="#supprimerAbsence" styleClass="button" prefWidth="120" />
+            <Button text="Rafraîchir" onAction="#onRafraichirButtonClicked" styleClass="button" prefWidth="120" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER">
+            <TableView fx:id="tableAbsence" styleClass="table-view" prefWidth="350" prefHeight="200">
+                <columns>
+                    <TableColumn text="Employé ID" fx:id="colEmpId" prefWidth="80" />
+                    <TableColumn text="Date" fx:id="colDate" prefWidth="100" />
+                    <TableColumn text="Motif" fx:id="colMotif" prefWidth="80" />
+                    <TableColumn text="Justifiée?" fx:id="colJustifie" prefWidth="90" />
+                </columns>
+            </TableView>
+        </HBox>
+    </VBox>
+</AnchorPane>

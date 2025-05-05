@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.DemanderCongeController" prefWidth="700" prefHeight="750" style="-fx-background-color: #F5F7FA;">
+    <stylesheets>
+        <URL value="@../css/main_styles.css" />
+    </stylesheets>
+    <VBox spacing="20" alignment="TOP_CENTER" layoutX="20" layoutY="40">
+        <Label text="Demander un congé" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #1A3C5A;" />
+        <HBox spacing="10" alignment="CENTER">
+            <Label text="Employé ID:" />
+            <TextField fx:id="empIdField" prefWidth="60" />
+            <Label text="Début:" />
+            <DatePicker fx:id="debutPicker" prefWidth="120" />
+            <Label text="Fin:" />
+            <DatePicker fx:id="finPicker" prefWidth="120" />
+            <Label text="Type:" />
+            <ComboBox fx:id="typeCombo" prefWidth="100">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Annuel" />
+                        <String fx:value="Maladie" />
+                        <String fx:value="Sans solde" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </HBox>
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="Ajouter demande" onAction="#ajouterConge" styleClass="button green" />
+            <Button text="Modifier demander" onAction="#modifierConge" styleClass="button" />
+            <Button text="Annuler demande" onAction="#supprimerConge" styleClass="button" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER">
+            <TableView fx:id="tableConge" prefWidth="600" prefHeight="400" styleClass="table-view">
+                <columns>
+                    <TableColumn text="Employé ID" fx:id="colEmpId" prefWidth="80" />
+                    <TableColumn text="Début" fx:id="colDebut" prefWidth="80" />
+                    <TableColumn text="Fin" fx:id="colFin" prefWidth="80" />
+                    <TableColumn text="Type" fx:id="colType" prefWidth="60" />
+                    <TableColumn text="Statut" fx:id="colStatut" prefWidth="60" />
+                    <TableColumn text="Congés Restants" fx:id="colCongesRestants" prefWidth="100" />
+                </columns>
+            </TableView>
+        </HBox>
+    </VBox>
+</AnchorPane>
