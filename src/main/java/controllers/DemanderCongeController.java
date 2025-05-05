@@ -5,6 +5,8 @@ import Gestion.services.ServiceConge;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -70,6 +72,31 @@ public class DemanderCongeController {
 
         // Load data into table
         refreshTable();
+
+        // Add listener to pre-fill fields when a row is selected
+        tableConge.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                empIdField.setText(String.valueOf(newSelection.getEmployeId()));
+                debutPicker.setValue(newSelection.getDateDebut() != null ? newSelection.getDateDebut().toLocalDate() : null);
+                finPicker.setValue(newSelection.getDateFin() != null ? newSelection.getDateFin().toLocalDate() : null);
+                typeCombo.setValue(newSelection.getType());
+            } else {
+                clearFields();
+            }
+        });
+    }
+
+    private void setStageIcon(Stage stage) {
+        try {
+            Image icon = new Image(getClass().getResourceAsStream("/images/app-icon.png"));
+            if (icon.isError()) {
+                System.err.println("Icon loading failed: Image is invalid.");
+            } else {
+                stage.getIcons().add(icon);
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to load icon: " + e.getMessage());
+        }
     }
 
     @FXML
@@ -107,7 +134,7 @@ public class DemanderCongeController {
     @FXML
     public void modifierConge() {
         Conge selectedConge = tableConge.getSelectionModel().getSelectedItem();
-        if ( selectedConge == null) {
+        if (selectedConge == null) {
             showAlert("Erreur", "Veuillez sélectionner un congé à modifier.");
             return;
         }

@@ -1,26 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+
 <?import java.net.URL?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.JustifierAbsenceController" prefWidth="440" prefHeight="650" style="-fx-background-color: #F5F7FA;">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="750.0" maxWidth="700.0" prefHeight="750.0" prefWidth="700.0" style="-fx-background-color: #F5F7FA;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="controllers.JustifierAbsenceController">
     <stylesheets>
         <URL value="@../css/main_styles.css" />
     </stylesheets>
-    <VBox spacing="10" alignment="TOP_CENTER" layoutX="20" layoutY="20">
-        <Label text="Vos absences en cours" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #1A3C5A;" />
-        <HBox spacing="10" alignment="CENTER">
-            <TableView fx:id="tableAbsence" prefWidth="350" styleClass="table-view">
+    <VBox alignment="CENTER" layoutX="20" layoutY="20" spacing="10" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="-170.0" AnchorPane.topAnchor="50.0">
+        <Label style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #1A3C5A;" text="Vos absences en cours">
+         <padding>
+            <Insets top="-20.0" />
+         </padding></Label>
+        <HBox alignment="CENTER" spacing="10">
+            <TableView fx:id="tableAbsence" prefHeight="544.0" prefWidth="480.0" styleClass="table-view">
                 <columns>
-                    <TableColumn text="Employé ID" fx:id="colEmpId" prefWidth="80" />
-                    <TableColumn text="Date Absence" fx:id="colDateAbsence" prefWidth="100" />
-                    <TableColumn text="Motif" fx:id="colMotif" prefWidth="80" />
-                    <TableColumn text="Justifiée?" fx:id="colJustifie" prefWidth="60" />
+                    <TableColumn fx:id="colEmpId" prefWidth="100.0" text="Employé ID" />
+                    <TableColumn fx:id="colDateAbsence" prefWidth="100" text="Date Absence" />
+                    <TableColumn fx:id="colMotif" prefWidth="100.0" text="Motif" />
+                    <TableColumn fx:id="colJustifie" prefWidth="100.0" text="Justifiée?" />
                 </columns>
+            <HBox.margin>
+               <Insets />
+            </HBox.margin>
             </TableView>
         </HBox>
-        <HBox spacing="10" alignment="CENTER">
-            <Button fx:id="uploadButton" text="Déposer votre certificat" onAction="#chooseImage" styleClass="button" />
-            <Button fx:id="justifyButton" text="Justifier ton absence" onAction="#justifyAbsence" disable="true" styleClass="button green" />
+        <HBox alignment="CENTER" spacing="10">
+            <Button fx:id="uploadButton" onAction="#chooseImage" styleClass="button" text="Déposer votre certificat" />
+            <Button fx:id="justifyButton" disable="true" onAction="#justifyAbsence" styleClass="button green" text="Justifier ton absence" />
         </HBox>
+      <padding>
+         <Insets right="230.0" />
+      </padding>
     </VBox>
 </AnchorPane>

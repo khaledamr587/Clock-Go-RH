@@ -11,7 +11,7 @@
         <URL value="@../css/main_styles.css" />
     </stylesheets>
     <children>
-        <ImageView fitHeight="800" fitWidth="1600" preserveRatio="false">
+        <ImageView fitHeight="600" fitWidth="800" preserveRatio="false">
             <image>
                 <Image url="@../images/background.jpg" />
             </image>

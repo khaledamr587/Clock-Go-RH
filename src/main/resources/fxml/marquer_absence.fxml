@@ -1,33 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import java.net.URL?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.MarquerAbsenceController" prefWidth="440" prefHeight="650" style="-fx-background-color: #F5F7FA;">
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="593.0" prefWidth="407.0" style="-fx-background-color: #F5F7FA;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MarquerAbsenceController">
     <stylesheets>
         <URL value="@../css/main_styles.css" />
     </stylesheets>
-    <VBox alignment="CENTER" spacing="15" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0">
-        <Label text="Ajouter une absence" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #1A3C5A;" />
-        <TextField fx:id="employeIdField" promptText="ID Employé" prefWidth="200" />
-        <DatePicker fx:id="dateAbsencePicker" promptText="Date d'absence" prefWidth="200" />
-        <TextField fx:id="motifField" promptText="Motif" prefWidth="200" />
+    <VBox alignment="CENTER" spacing="15" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+        <Label style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #1A3C5A;" text="Marquer une absence">
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin></Label>
+        <TextField fx:id="employeIdField" prefWidth="200" promptText="ID Employé" />
+        <DatePicker fx:id="dateAbsencePicker" prefWidth="200" promptText="Date d'absence" />
+        <TextField fx:id="motifField" prefWidth="200" promptText="Motif" />
         <CheckBox fx:id="justifieCheckBox" text="Justifiée?" />
-        <HBox spacing="10" alignment="CENTER">
-            <Button text="Ajouter Absence" onAction="#ajouterAbsence" styleClass="button green" prefWidth="120" />
-            <Button text="Modifier Absence" onAction="#modifierAbsence" styleClass="button" prefWidth="120" />
-            <Button text="Supprimer Absence" onAction="#supprimerAbsence" styleClass="button" prefWidth="120" />
-            <Button text="Rafraîchir" onAction="#onRafraichirButtonClicked" styleClass="button" prefWidth="120" />
+        <HBox alignment="CENTER" prefHeight="30.0" prefWidth="378.0" spacing="10">
+            <Button onAction="#ajouterAbsence" prefHeight="30.0" prefWidth="140.0" styleClass="button green" text="Ajouter " />
+            <Button onAction="#modifierAbsence" prefWidth="140.0" styleClass="button" text="Modifier " />
+            <Button onAction="#supprimerAbsence" prefWidth="140.0" styleClass="button" text="Supprimer " />
+            <Button onAction="#onRafraichirButtonClicked" prefWidth="140.0" styleClass="button" text="Rafraîchir" />
         </HBox>
-        <HBox spacing="10" alignment="CENTER">
-            <TableView fx:id="tableAbsence" styleClass="table-view" prefWidth="350" prefHeight="200">
+      <Label prefHeight="19.0" prefWidth="200.0" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #1A3C5A;" text="    Liste des absences">
+         <padding>
+            <Insets top="-3.0" />
+         </padding>
+      </Label>
+        <HBox alignment="CENTER" prefHeight="283.0" prefWidth="386.0" spacing="10">
+            <TableView fx:id="tableAbsence" prefHeight="216.0" prefWidth="350" styleClass="table-view">
                 <columns>
-                    <TableColumn text="Employé ID" fx:id="colEmpId" prefWidth="80" />
-                    <TableColumn text="Date" fx:id="colDate" prefWidth="100" />
-                    <TableColumn text="Motif" fx:id="colMotif" prefWidth="80" />
-                    <TableColumn text="Justifiée?" fx:id="colJustifie" prefWidth="90" />
+                    <TableColumn fx:id="colEmpId" prefWidth="80" text="Employé ID" />
+                    <TableColumn fx:id="colDate" prefWidth="100" text="Date" />
+                    <TableColumn fx:id="colMotif" prefWidth="80" text="Motif" />
+                    <TableColumn fx:id="colJustifie" prefWidth="90" text="Justifiée?" />
                 </columns>
+            <HBox.margin>
+               <Insets bottom="10.0" top="50.0" />
+            </HBox.margin>
             </TableView>
+         <padding>
+            <Insets top="-50.0" />
+         </padding>
         </HBox>
     </VBox>
+   <Label layoutX="-128.0" layoutY="320.0" text="Label" />
 </AnchorPane>

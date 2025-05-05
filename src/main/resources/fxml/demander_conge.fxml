@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.collections.FXCollections?>
+
 <?import java.lang.String?>
 <?import java.net.URL?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.DemanderCongeController" prefWidth="700" prefHeight="750" style="-fx-background-color: #F5F7FA;">
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="750.0" maxWidth="700.0" prefHeight="750" prefWidth="700" style="-fx-background-color: #F5F7FA;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DemanderCongeController">
     <stylesheets>
         <URL value="@../css/main_styles.css" />
     </stylesheets>
-    <VBox spacing="20" alignment="TOP_CENTER" layoutX="20" layoutY="40">
-        <Label text="Demander un congé" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #1A3C5A;" />
-        <HBox spacing="10" alignment="CENTER">
+    <VBox alignment="TOP_CENTER" spacing="20" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+        <Label style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #1A3C5A;" text="Demandes de congés en cours">
+            <padding>
+                <Insets bottom="30.0" top="30.0" />
+            </padding>
+        </Label>
+        <TableView fx:id="tableConge" prefHeight="400" prefWidth="658.0" styleClass="table-view">
+            <columns>
+                <TableColumn fx:id="colEmpId" prefWidth="80" text="Employé ID" />
+                <TableColumn fx:id="colDebut" prefWidth="80" text="Début" />
+                <TableColumn fx:id="colFin" prefWidth="80" text="Fin" />
+                <TableColumn fx:id="colType" prefWidth="60" text="Type" />
+                <TableColumn fx:id="colStatut" prefWidth="60" text="Statut" />
+                <TableColumn fx:id="colCongesRestants" prefWidth="100" text="Congés Restants" />
+            </columns>
+        </TableView>
+        <HBox alignment="CENTER" spacing="10">
             <Label text="Employé ID:" />
             <TextField fx:id="empIdField" prefWidth="60" />
             <Label text="Début:" />
@@ -28,22 +53,10 @@
                 </items>
             </ComboBox>
         </HBox>
-        <HBox spacing="10" alignment="CENTER">
-            <Button text="Ajouter demande" onAction="#ajouterConge" styleClass="button green" />
-            <Button text="Modifier demander" onAction="#modifierConge" styleClass="button" />
-            <Button text="Annuler demande" onAction="#supprimerConge" styleClass="button" />
-        </HBox>
-        <HBox spacing="10" alignment="CENTER">
-            <TableView fx:id="tableConge" prefWidth="600" prefHeight="400" styleClass="table-view">
-                <columns>
-                    <TableColumn text="Employé ID" fx:id="colEmpId" prefWidth="80" />
-                    <TableColumn text="Début" fx:id="colDebut" prefWidth="80" />
-                    <TableColumn text="Fin" fx:id="colFin" prefWidth="80" />
-                    <TableColumn text="Type" fx:id="colType" prefWidth="60" />
-                    <TableColumn text="Statut" fx:id="colStatut" prefWidth="60" />
-                    <TableColumn text="Congés Restants" fx:id="colCongesRestants" prefWidth="100" />
-                </columns>
-            </TableView>
+        <HBox alignment="CENTER" spacing="10">
+            <Button onAction="#ajouterConge" styleClass="button green" text="Ajouter demande" />
+            <Button onAction="#modifierConge" styleClass="button" text="Modifier demander" />
+            <Button onAction="#supprimerConge" styleClass="button" text="Annuler demande" />
         </HBox>
     </VBox>
 </AnchorPane>
