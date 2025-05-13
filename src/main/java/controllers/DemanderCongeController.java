@@ -2,243 +2,246 @@ package controllers;
 
 import Gestion.models.Conge;
 import Gestion.services.ServiceConge;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
+import java.util.Optional;
+import javafx.scene.layout.VBox;
 import java.sql.Date;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 
 public class DemanderCongeController {
 
     @FXML
-    private TableView<Conge> tableConge;
+    private VBox cardContainer;
 
     @FXML
-    private TableColumn<Conge, Integer> colEmpId;
+    private Button ajouterCongeButton;
 
     @FXML
-    private TableColumn<Conge, Date> colDebut;
+    private Button modifierCongeButton;
 
     @FXML
-    private TableColumn<Conge, Date> colFin;
-
-    @FXML
-    private TableColumn<Conge, String> colType;
-
-    @FXML
-    private TableColumn<Conge, String> colStatut;
-
-    @FXML
-    private TableColumn<Conge, String> colCongesRestants;
-
-    @FXML
-    private TextField empIdField;
-
-    @FXML
-    private DatePicker debutPicker;
-
-    @FXML
-    private DatePicker finPicker;
-
-    @FXML
-    private ComboBox<String> typeCombo;
+    private Button annulerCongeButton;
 
     private ServiceConge serviceConge;
-    private Map<Integer, Integer> congesRestantsMap; // Maps employeId to remaining congés
+    private Conge selectedConge;
+    private VBox selectedCard;
 
     @FXML
     public void initialize() {
         serviceConge = new ServiceConge();
-        congesRestantsMap = new HashMap<>();
-
-        // Enable single selection in TableView
-        tableConge.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
-        // Configure table columns
-        colEmpId.setCellValueFactory(cellData -> new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getEmployeId()).asObject());
-        colDebut.setCellValueFactory(cellData -> new javafx.beans.property.SimpleObjectProperty<>(cellData.getValue().getDateDebut()));
-        colFin.setCellValueFactory(cellData -> new javafx.beans.property.SimpleObjectProperty<>(cellData.getValue().getDateFin()));
-        colType.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getType()));
-        colStatut.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getStatut()));
-        colCongesRestants.setCellValueFactory(cellData -> {
-            int employeId = cellData.getValue().getEmployeId();
-            Integer remaining = congesRestantsMap.getOrDefault(employeId, 30);
-            return new javafx.beans.property.SimpleStringProperty(remaining + "jrs");
-        });
-
-        // Load data into table
+        // Vérifier l'initialisation des boutons
+        if (ajouterCongeButton == null) {
+            System.err.println("Erreur : Le bouton 'Ajouter' n'est pas correctement initialisé.");
+        } else {
+            System.out.println("Bouton 'Ajouter' bien initialisé.");
+            ajouterCongeButton.setVisible(true);
+        }
+        if (modifierCongeButton == null || annulerCongeButton == null) {
+            System.err.println("Erreur : Les boutons 'Modifier' ou 'Annuler' ne sont pas correctement initialisés.");
+        } else {
+            System.out.println("Boutons 'Modifier' et 'Annuler' bien initialisés.");
+            modifierCongeButton.setVisible(true);
+            annulerCongeButton.setVisible(true);
+            modifierCongeButton.setDisable(true);
+            annulerCongeButton.setDisable(true);
+        }
         refreshTable();
-
-        // Add listener to pre-fill fields when a row is selected
-        tableConge.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                empIdField.setText(String.valueOf(newSelection.getEmployeId()));
-                debutPicker.setValue(newSelection.getDateDebut() != null ? newSelection.getDateDebut().toLocalDate() : null);
-                finPicker.setValue(newSelection.getDateFin() != null ? newSelection.getDateFin().toLocalDate() : null);
-                typeCombo.setValue(newSelection.getType());
-            } else {
-                clearFields();
-            }
-        });
     }
 
-    private void setStageIcon(Stage stage) {
+    private void refreshTable() {
         try {
-            Image icon = new Image(getClass().getResourceAsStream("/images/app-icon.png"));
-            if (icon.isError()) {
-                System.err.println("Icon loading failed: Image is invalid.");
-            } else {
-                stage.getIcons().add(icon);
+            cardContainer.getChildren().clear();
+            for (Conge conge : serviceConge.afficher()) {
+                VBox card = new VBox(5);
+                card.getStyleClass().add("card");
+                card.getChildren().addAll(
+                        new Label("Employé ID: " + conge.getEmployeId()),
+                        new Label("Début: " + conge.getDateDebut()),
+                        new Label("Fin: " + conge.getDateFin()),
+                        new Label("Type: " + conge.getType()),
+                        new Label("Statut: " + conge.getStatut())
+                );
+                card.setOnMouseClicked(event -> {
+                    if (selectedCard != null) {
+                        selectedCard.getStyleClass().remove("selected-card");
+                    }
+                    selectedConge = conge;
+                    selectedCard = card;
+                    selectedCard.getStyleClass().add("selected-card");
+                    if (modifierCongeButton != null && annulerCongeButton != null) {
+                        modifierCongeButton.setDisable(false);
+                        annulerCongeButton.setDisable(false);
+                        System.out.println("Carte sélectionnée : Employé ID " + conge.getEmployeId());
+                    }
+                });
+                cardContainer.getChildren().add(card);
             }
         } catch (Exception e) {
-            System.err.println("Failed to load icon: " + e.getMessage());
+            showAlert("Erreur", "Erreur lors du rafraîchissement des congés : " + e.getMessage());
+            System.err.println("Exception dans refreshTable : " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
     @FXML
     public void ajouterConge() {
-        try {
-            int employeId = Integer.parseInt(empIdField.getText());
-            LocalDate debut = debutPicker.getValue();
-            LocalDate fin = finPicker.getValue();
-            String type = typeCombo.getValue();
+        // Créer une boîte de dialogue pour saisir les détails du congé
+        Dialog<Conge> dialog = new Dialog<>();
+        dialog.setTitle("Ajouter une demande de congé");
+        dialog.setHeaderText("Entrez les détails de votre demande");
 
-            if (debut == null || fin == null || type == null || type.isEmpty()) {
-                showAlert("Erreur", "Veuillez remplir tous les champs.");
-                return;
+        // Définir les champs de saisie
+        ComboBox<Integer> employeIdComboBox = new ComboBox<>();
+        employeIdComboBox.getItems().addAll(serviceConge.getEmployeIds());
+        employeIdComboBox.setPromptText("Employé ID");
+        DatePicker dateDebutPicker = new DatePicker();
+        dateDebutPicker.setPromptText("Date de début");
+        DatePicker dateFinPicker = new DatePicker();
+        dateFinPicker.setPromptText("Date de fin");
+        ComboBox<String> typeComboBox = new ComboBox<>();
+        typeComboBox.getItems().addAll("Maladie", "Annuel", "Sans solde");
+        typeComboBox.setPromptText("Sélectionnez un type");
+
+        VBox dialogContent = new VBox(10);
+        dialogContent.getChildren().addAll(
+                new Label("Employé ID:"), employeIdComboBox,
+                new Label("Date de début:"), dateDebutPicker,
+                new Label("Date de fin:"), dateFinPicker,
+                new Label("Type de congé:"), typeComboBox
+        );
+        dialog.getDialogPane().setContent(dialogContent);
+
+        // Ajouter les boutons OK et Annuler
+        ButtonType buttonTypeOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(buttonTypeOk, ButtonType.CANCEL);
+
+        // Convertir le résultat en objet Conge
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == buttonTypeOk) {
+                Integer employeId = employeIdComboBox.getValue();
+                if (employeId == null) {
+                    showAlert("Erreur", "Veuillez sélectionner un Employé ID.");
+                    return null;
+                }
+                Date dateDebut = dateDebutPicker.getValue() != null ? Date.valueOf(dateDebutPicker.getValue()) : null;
+                Date dateFin = dateFinPicker.getValue() != null ? Date.valueOf(dateFinPicker.getValue()) : null;
+                String type = typeComboBox.getValue();
+                if (type == null || type.isEmpty()) {
+                    showAlert("Erreur", "Veuillez sélectionner un type de congé.");
+                    return null;
+                }
+                return new Conge(0, employeId, dateDebut, dateFin, type, "en attente");
             }
+            return null;
+        });
 
-            Conge conge = new Conge();
-            conge.setEmployeId(employeId);
-            conge.setDateDebut(Date.valueOf(debut));
-            conge.setDateFin(Date.valueOf(fin));
-            conge.setType(type);
-            conge.setStatut("en attente");
-
-            serviceConge.ajouter(conge);
-            initializeCongesRestants(employeId);
-            refreshTable();
-            clearFields();
-            showAlert("Succès", "Congé ajouté avec succès.");
-        } catch (NumberFormatException e) {
-            showAlert("Erreur", "L'ID de l'employé doit être un nombre.");
-        } catch (Exception e) {
-            showAlert("Erreur", "Erreur lors de l'ajout du congé : " + e.getMessage());
-        }
+        Optional<Conge> result = dialog.showAndWait();
+        result.ifPresent(conge -> {
+            try {
+                serviceConge.ajouter(conge);
+                refreshTable();
+                showAlert("Succès", "Demande de congé ajoutée avec succès.");
+            } catch (Exception e) {
+                showAlert("Erreur", "Erreur lors de l'ajout de la demande : " + e.getMessage());
+                System.err.println("Exception dans ajouterConge : " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
     }
 
     @FXML
     public void modifierConge() {
-        Conge selectedConge = tableConge.getSelectionModel().getSelectedItem();
-        if (selectedConge == null) {
-            showAlert("Erreur", "Veuillez sélectionner un congé à modifier.");
+        if (selectedConge == null || !selectedConge.getStatut().equals("en attente")) {
+            showAlert("Erreur", "Veuillez sélectionner une demande en attente à modifier.");
             return;
         }
 
-        try {
-            int employeId = Integer.parseInt(empIdField.getText());
-            LocalDate debut = debutPicker.getValue();
-            LocalDate fin = finPicker.getValue();
-            String type = typeCombo.getValue();
-            String previousStatut = selectedConge.getStatut();
+        // Créer une boîte de dialogue pour modifier les détails du congé
+        Dialog<Conge> dialog = new Dialog<>();
+        dialog.setTitle("Modifier la demande de congé");
+        dialog.setHeaderText("Modifiez les détails de votre demande");
 
-            if (debut == null || fin == null || type == null || type.isEmpty()) {
-                showAlert("Erreur", "Veuillez remplir tous les champs.");
-                return;
+        // Définir les champs de saisie avec les valeurs actuelles
+        DatePicker dateDebutPicker = new DatePicker(selectedConge.getDateDebut() != null ? selectedConge.getDateDebut().toLocalDate() : null);
+        dateDebutPicker.setPromptText("Date de début");
+        DatePicker dateFinPicker = new DatePicker(selectedConge.getDateFin() != null ? selectedConge.getDateFin().toLocalDate() : null);
+        dateFinPicker.setPromptText("Date de fin");
+        ComboBox<String> typeComboBox = new ComboBox<>();
+        typeComboBox.getItems().addAll("Maladie", "Annuel", "Sans solde");
+        typeComboBox.setValue(selectedConge.getType());
+        typeComboBox.setPromptText("Sélectionnez un type");
+
+        VBox dialogContent = new VBox(10);
+        dialogContent.getChildren().addAll(
+                new Label("Date de début:"), dateDebutPicker,
+                new Label("Date de fin:"), dateFinPicker,
+                new Label("Type de congé:"), typeComboBox
+        );
+        dialog.getDialogPane().setContent(dialogContent);
+
+        // Ajouter les boutons OK et Annuler
+        ButtonType buttonTypeOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(buttonTypeOk, ButtonType.CANCEL);
+
+        // Convertir le résultat en objet Conge
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == buttonTypeOk) {
+                Date dateDebut = dateDebutPicker.getValue() != null ? Date.valueOf(dateDebutPicker.getValue()) : selectedConge.getDateDebut();
+                Date dateFin = dateFinPicker.getValue() != null ? Date.valueOf(dateFinPicker.getValue()) : selectedConge.getDateFin();
+                String type = typeComboBox.getValue();
+                if (type == null || type.isEmpty()) {
+                    showAlert("Erreur", "Veuillez sélectionner un type de congé.");
+                    return null;
+                }
+                Conge updatedConge = new Conge(
+                        selectedConge.getId(),
+                        selectedConge.getEmployeId(),
+                        dateDebut,
+                        dateFin,
+                        type,
+                        selectedConge.getStatut()
+                );
+                return updatedConge;
             }
+            return null;
+        });
 
-            selectedConge.setEmployeId(employeId);
-            selectedConge.setDateDebut(Date.valueOf(debut));
-            selectedConge.setDateFin(Date.valueOf(fin));
-            selectedConge.setType(type);
-
-            serviceConge.modifier(selectedConge);
-            updateCongesRestants(selectedConge, previousStatut);
-            refreshTable();
-            clearFields();
-            showAlert("Succès", "Congé modifié avec succès.");
-        } catch (NumberFormatException e) {
-            showAlert("Erreur", "L'ID de l'employé doit être un nombre.");
-        } catch (Exception e) {
-            showAlert("Erreur", "Erreur lors de la modification du congé : " + e.getMessage());
-        }
+        Optional<Conge> result = dialog.showAndWait();
+        result.ifPresent(updatedConge -> {
+            try {
+                serviceConge.modifier(updatedConge);
+                refreshTable();
+                showAlert("Succès", "Demande modifiée avec succès.");
+            } catch (Exception e) {
+                showAlert("Erreur", "Erreur lors de la modification : " + e.getMessage());
+                System.err.println("Exception dans modifierConge : " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
     }
 
     @FXML
-    public void supprimerConge() {
-        Conge selectedConge = tableConge.getSelectionModel().getSelectedItem();
-        if (selectedConge == null) {
-            showAlert("Erreur", "Veuillez sélectionner un congé à supprimer.");
+    public void annulerConge() {
+        if (selectedConge == null || !selectedConge.getStatut().equals("en attente")) {
+            showAlert("Erreur", "Veuillez sélectionner une demande en attente à annuler.");
             return;
         }
 
-        try {
-            String previousStatut = selectedConge.getStatut();
-            serviceConge.supprimer(selectedConge.getId());
-            updateCongesRestantsAfterDeletion(selectedConge, previousStatut);
-            refreshTable();
-            clearFields();
-            showAlert("Succès", "Congé supprimé avec succès.");
-        } catch (Exception e) {
-            showAlert("Erreur", "Erreur lors de la suppression du congé : " + e.getMessage());
-        }
-    }
-
-    private void refreshTable() {
-        try {
-            tableConge.getItems().clear();
-            tableConge.setItems(FXCollections.observableArrayList(serviceConge.afficher()));
-            // Initialize remaining congés for all employees in the table
-            for (Conge conge : tableConge.getItems()) {
-                initializeCongesRestants(conge.getEmployeId());
-                updateCongesRestants(conge, null);
-            }
-        } catch (Exception e) {
-            showAlert("Erreur", "Erreur lors du rafraîchissement des congés : " + e.getMessage());
-        }
-    }
-
-    private void initializeCongesRestants(int employeId) {
-        congesRestantsMap.putIfAbsent(employeId, 30);
-    }
-
-    private void updateCongesRestants(Conge conge, String previousStatut) {
-        int employeId = conge.getEmployeId();
-        String currentStatut = conge.getStatut();
-
-        // If this is a modification and the status changed from non-"accepté" to "accepté"
-        if (previousStatut != null && !previousStatut.equals("accepté") && currentStatut.equals("accepté")) {
-            int currentConges = congesRestantsMap.getOrDefault(employeId, 30);
-            if (currentConges > 0) {
-                congesRestantsMap.put(employeId, currentConges - 1);
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Confirmation");
+        confirmAlert.setHeaderText("Annuler la demande");
+        confirmAlert.setContentText("Êtes-vous sûr de vouloir annuler cette demande de congé ?");
+        if (confirmAlert.showAndWait().get() == ButtonType.OK) {
+            try {
+                serviceConge.supprimer(selectedConge.getId());
+                refreshTable();
+                showAlert("Succès", "Demande annulée avec succès.");
+            } catch (Exception e) {
+                showAlert("Erreur", "Erreur lors de l'annulation : " + e.getMessage());
+                System.err.println("Exception dans annulerConge : " + e.getMessage());
+                e.printStackTrace();
             }
         }
-        // If this is an initial load or refresh, count all "accepté" congés
-        else if (previousStatut == null && currentStatut.equals("accepté")) {
-            int currentConges = congesRestantsMap.getOrDefault(employeId, 30);
-            if (currentConges > 0) {
-                congesRestantsMap.put(employeId, currentConges - 1);
-            }
-        }
-    }
-
-    private void updateCongesRestantsAfterDeletion(Conge conge, String previousStatut) {
-        if (previousStatut.equals("accepté")) {
-            int employeId = conge.getEmployeId();
-            int currentConges = congesRestantsMap.getOrDefault(employeId, 30);
-            congesRestantsMap.put(employeId, currentConges + 1);
-        }
-    }
-
-    private void clearFields() {
-        empIdField.clear();
-        debutPicker.setValue(null);
-        finPicker.setValue(null);
-        typeCombo.setValue(null);
     }
 
     private void showAlert(String title, String content) {

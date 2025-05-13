@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #e8e9e8;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rh.Controller.Profile">
+   <children>
+      <HBox fx:id="box" prefHeight="100.0" prefWidth="800.0" />
+      <Label layoutX="318.0" layoutY="126.0" prefHeight="39.0" prefWidth="165.0" text="Votre Profile" textFill="#0b3a53">
+         <font>
+            <Font name="System Bold" size="27.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="29.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/logo.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="206.0" layoutY="214.0" prefHeight="225.0" prefWidth="494.0" style="-fx-background-color: white; -fx-background-radius: 20;">
+         <children>
+            <TextField fx:id="pwd" layoutX="178.0" layoutY="166.0" prefHeight="25.0" prefWidth="276.0" />
+            <Label layoutX="14.0" layoutY="40.0" text="Nom" textFill="#0b3a53">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="13.0" layoutY="84.0" text="Prenom" textFill="#0b3a53">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="13.0" layoutY="127.0" text="Email" textFill="#0b3a53">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="13.0" layoutY="170.0" text="Mot De passe" textFill="#0b3a53">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="email" layoutX="178.0" layoutY="123.0" prefHeight="25.0" prefWidth="276.0" />
+            <TextField fx:id="prenom" layoutX="178.0" layoutY="80.0" prefHeight="25.0" prefWidth="276.0" />
+            <TextField fx:id="nom" layoutX="178.0" layoutY="36.0" prefHeight="25.0" prefWidth="276.0" />
+            <Label fx:id="nomcc" layoutX="177.0" layoutY="61.0" prefHeight="17.0" prefWidth="276.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="prenomcc" layoutX="178.0" layoutY="105.0" prefHeight="17.0" prefWidth="276.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="emailcc" layoutX="177.0" layoutY="148.0" prefHeight="17.0" prefWidth="276.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="pwdcc" layoutX="178.0" layoutY="191.0" prefHeight="17.0" prefWidth="276.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Button layoutX="276.0" layoutY="517.0" mnemonicParsing="false" onAction="#retour" prefHeight="31.0" prefWidth="98.0" style="-fx-background-radius: 20; -fx-background-color: #0b3a53;" text="Annuler" textFill="#fffefe">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="424.0" layoutY="517.0" mnemonicParsing="false" onAction="#submit" style="-fx-background-radius: 20; -fx-background-color: #0b3a53;" text="Enregistrer" textFill="#fffefe">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Label fx:id="submitcc" layoutX="252.0" layoutY="563.0" prefHeight="17.0" prefWidth="276.0" textFill="RED">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="submitss" layoutX="538.0" layoutY="524.0" prefHeight="17.0" prefWidth="247.0" textFill="#20f200">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+   </children>
+</AnchorPane>

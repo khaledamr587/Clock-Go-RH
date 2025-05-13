@@ -1,27 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.HBox?>
 <?import java.net.URL?>
 <?import javafx.scene.image.ImageView?>
-<?import java.net.URL?>
-
 <?import javafx.scene.image.Image?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.Main2Controller" prefWidth="800" prefHeight="600">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.Main2Controller"
+            prefWidth="800" prefHeight="600" fx:id="anchorPane">
+
     <stylesheets>
         <URL value="@../css/main_styles.css" />
     </stylesheets>
-    <style>
-        -fx-background-color: linear-gradient(to bottom right, #F5F7FA, #FFFFFF);
-    </style>
-    <ImageView fitWidth="800" fitHeight="600" preserveRatio="false">
-        <image>
-            <Image url="@/images/background.jpg" />
-        </image>
-    </ImageView>
-    <VBox alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" spacing="30">
-        <Label text="Gestion des congés et absences" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #1A3C5A;" />
-        <Button text="Traiter les demandes de congés" onAction="#goToValiderConge" prefWidth="300" styleClass="button" />
-        <Button text="Marquer les Absences" onAction="#goToMarquerAbsence" prefWidth="300" styleClass="button green" style="-fx-background-color: #00A99D;" />
-    </VBox>
+
+    <HBox spacing="20" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+
+        <!-- Sidebar -->
+        <VBox fx:id="sidebar" prefWidth="280" alignment="TOP_CENTER" spacing="25"
+              style="-fx-background-color: #F5F7FA; -fx-padding: 30;">
+            <Label text="Congés et absences"
+                   styleClass="title-main2" />
+
+            <!-- Button with default .button style -->
+            <Button text="Valider les congés" onAction="#goToValiderConge"
+                    prefHeight="39.0" prefWidth="230" styleClass="button" />
+
+            <Button text="Marquer les Absences" onAction="#goToMarquerAbsence"
+                    prefHeight="39.0" prefWidth="230" styleClass="button-green" />
+
+        </VBox>
+
+
+        <!-- Main content area -->
+        <StackPane fx:id="mainContent" alignment="CENTER" HBox.hgrow="ALWAYS"
+                   style="-fx-background-color: white;">
+            <PieChart fx:id="leavePieChart" prefWidth="500" prefHeight="400"
+                      title="Répartition des types de congés"
+                      styleClass="custom-pie-chart" />
+        </StackPane>
+    </HBox>
 </AnchorPane>

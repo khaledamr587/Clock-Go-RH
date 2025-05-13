@@ -4,40 +4,35 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
 
-<AnchorPane maxHeight="750.0" maxWidth="700.0" prefHeight="750.0" prefWidth="700.0" style="-fx-background-color: #F5F7FA;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="controllers.JustifierAbsenceController">
+<AnchorPane maxHeight="750.0" maxWidth="700.0" prefHeight="750.0" prefWidth="700.0" style="-fx-background-color: #F5F7FA;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.JustifierAbsenceController">
     <stylesheets>
         <URL value="@../css/main_styles.css" />
     </stylesheets>
     <VBox alignment="CENTER" layoutX="20" layoutY="20" spacing="10" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="-170.0" AnchorPane.topAnchor="50.0">
-        <Label style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #1A3C5A;" text="Vos absences en cours">
-         <padding>
-            <Insets top="-20.0" />
-         </padding></Label>
+        <Label style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #1A3C5A;" text="Anciennes absences :">
+            <padding>
+                <Insets top="-20.0" />
+            </padding></Label>
         <HBox alignment="CENTER" spacing="10">
-            <TableView fx:id="tableAbsence" prefHeight="544.0" prefWidth="480.0" styleClass="table-view">
-                <columns>
-                    <TableColumn fx:id="colEmpId" prefWidth="100.0" text="Employé ID" />
-                    <TableColumn fx:id="colDateAbsence" prefWidth="100" text="Date Absence" />
-                    <TableColumn fx:id="colMotif" prefWidth="100.0" text="Motif" />
-                    <TableColumn fx:id="colJustifie" prefWidth="100.0" text="Justifiée?" />
-                </columns>
-            <HBox.margin>
-               <Insets />
-            </HBox.margin>
-            </TableView>
+            <ScrollPane prefHeight="544.0" prefWidth="480.0">
+                <VBox fx:id="cardContainer" spacing="10" />
+            </ScrollPane>
         </HBox>
         <HBox alignment="CENTER" spacing="10">
             <Button fx:id="uploadButton" onAction="#chooseImage" styleClass="button" text="Déposer votre certificat" />
             <Button fx:id="justifyButton" disable="true" onAction="#justifyAbsence" styleClass="button green" text="Justifier ton absence" />
+            <Button onAction="#exportToExcel" styleClass="button" text="Exporter en Excel" />
+            <Button onAction="#exportToPDF" styleClass="button" text="Exporter en PDF" />
+            <SVGPath fx:id="checkmark" content="M10 20l-5-5m5 5l5-5" visible="false" />
         </HBox>
-      <padding>
-         <Insets right="230.0" />
-      </padding>
+        <padding>
+            <Insets right="230.0" />
+        </padding>
     </VBox>
 </AnchorPane>

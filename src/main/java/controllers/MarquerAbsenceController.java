@@ -8,12 +8,14 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import java.sql.Date;
 import java.time.LocalDate;
-import javafx.stage.Stage; // Added import for Stage
+import javafx.stage.Stage;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
 
 public class MarquerAbsenceController {
 
     @FXML
-    private TextField employeIdField;
+    private ComboBox<Integer> employeIdComboBox;
 
     @FXML
     private DatePicker dateAbsencePicker;
@@ -25,44 +27,23 @@ public class MarquerAbsenceController {
     private CheckBox justifieCheckBox;
 
     @FXML
-    private TableView<Absence> tableAbsence;
-
-    @FXML
-    private TableColumn<Absence, Integer> colEmpId;
-
-    @FXML
-    private TableColumn<Absence, Date> colDate;
-
-    @FXML
-    private TableColumn<Absence, String> colMotif;
-
-    @FXML
-    private TableColumn<Absence, Boolean> colJustifie;
+    private VBox cardContainer;
 
     private ServiceAbsence serviceAbsence;
 
-    private boolean isManualRefresh = false; // Flag to track manual refresh
+    private boolean isManualRefresh = false;
+
+    private Absence selectedAbsence; // Pour stocker l'absence sélectionnée
+    private VBox selectedCard;
 
     @FXML
     public void initialize() {
         try {
             serviceAbsence = new ServiceAbsence();
-            tableAbsence.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-            colEmpId.setCellValueFactory(cellData -> new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getEmployeId()).asObject());
-            colDate.setCellValueFactory(cellData -> new javafx.beans.property.SimpleObjectProperty<>(cellData.getValue().getDateAbsence()));
-            colMotif.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getMotif()));
-            colJustifie.setCellValueFactory(cellData -> new javafx.beans.property.SimpleBooleanProperty(cellData.getValue().isJustifie()).asObject());
+            // Remplir le ComboBox avec les IDs d'employés
+            employeIdComboBox.getItems().addAll(serviceAbsence.getEmployeIds());
+            employeIdComboBox.setPromptText("ID Employé");
             rafraichirAbsence();
-            tableAbsence.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-                if (newSelection != null) {
-                    employeIdField.setText(String.valueOf(newSelection.getEmployeId()));
-                    dateAbsencePicker.setValue(newSelection.getDateAbsence() != null ? newSelection.getDateAbsence().toLocalDate() : null);
-                    motifField.setText(newSelection.getMotif() != null ? newSelection.getMotif() : "");
-                    justifieCheckBox.setSelected(newSelection.isJustifie());
-                } else {
-                    clearFields();
-                }
-            });
         } catch (Exception e) {
             showAlert("Erreur d'initialisation", "Erreur lors de l'initialisation : " + e.getMessage());
             e.printStackTrace();
@@ -88,7 +69,11 @@ public class MarquerAbsenceController {
             return;
         }
         try {
-            int employeId = Integer.parseInt(employeIdField.getText().trim());
+            Integer employeId = employeIdComboBox.getValue();
+            if (employeId == null) {
+                showAlert("Champ manquant", "Veuillez sélectionner un ID d'employé.");
+                return;
+            }
             Date dateAbsence = Date.valueOf(dateAbsencePicker.getValue());
             String motif = motifField.getText().trim();
             boolean justifie = justifieCheckBox.isSelected();
@@ -105,7 +90,6 @@ public class MarquerAbsenceController {
 
     @FXML
     public void modifierAbsence() {
-        Absence selectedAbsence = tableAbsence.getSelectionModel().getSelectedItem();
         if (selectedAbsence == null) {
             showAlert("Aucune sélection", "Veuillez sélectionner une absence à modifier.");
             return;
@@ -123,7 +107,11 @@ public class MarquerAbsenceController {
         }
 
         try {
-            int employeId = Integer.parseInt(employeIdField.getText().trim());
+            Integer employeId = employeIdComboBox.getValue();
+            if (employeId == null) {
+                showAlert("Champ manquant", "Veuillez sélectionner un ID d'employé.");
+                return;
+            }
             Date dateAbsence = Date.valueOf(dateAbsencePicker.getValue());
             String motif = motifField.getText().trim();
             boolean justifie = justifieCheckBox.isSelected();
@@ -140,7 +128,6 @@ public class MarquerAbsenceController {
 
     @FXML
     public void supprimerAbsence() {
-        Absence selectedAbsence = tableAbsence.getSelectionModel().getSelectedItem();
         if (selectedAbsence == null) {
             showAlert("Aucune sélection", "Veuillez sélectionner une absence à supprimer.");
             return;
@@ -166,8 +153,31 @@ public class MarquerAbsenceController {
     @FXML
     public void rafraichirAbsence() {
         try {
-            tableAbsence.getItems().clear();
-            tableAbsence.setItems(FXCollections.observableArrayList(serviceAbsence.afficher()));
+            cardContainer.getChildren().clear();
+            for (Absence absence : serviceAbsence.afficher()) {
+                VBox card = new VBox(5);
+                card.getStyleClass().add("card");
+                card.getChildren().addAll(
+                        new Label("Employé ID: " + absence.getEmployeId()),
+                        new Label("Date: " + absence.getDateAbsence()),
+                        new Label("Motif: " + absence.getMotif()),
+                        new Label("Justifiée?: " + absence.isJustifie())
+                );
+                // Ajouter un gestionnaire d'événements pour gérer la sélection
+                card.setOnMouseClicked(event -> {
+                    if (selectedCard != null) {
+                        selectedCard.getStyleClass().remove("selected-card");
+                    }
+                    selectedAbsence = absence;
+                    selectedCard = card;
+                    selectedCard.getStyleClass().add("selected-card");
+                    employeIdComboBox.setValue(absence.getEmployeId());
+                    dateAbsencePicker.setValue(absence.getDateAbsence() != null ? absence.getDateAbsence().toLocalDate() : null);
+                    motifField.setText(absence.getMotif() != null ? absence.getMotif() : "");
+                    justifieCheckBox.setSelected(absence.isJustifie());
+                });
+                cardContainer.getChildren().add(card);
+            }
             if (isManualRefresh) {
                 showAlert("Succès", "La liste des absences a été rafraîchie avec succès.");
             }
@@ -185,19 +195,9 @@ public class MarquerAbsenceController {
     }
 
     private boolean validateInputs() {
-        String employeIdText = employeIdField.getText();
-        if (employeIdText == null || employeIdText.trim().isEmpty()) {
-            showAlert("Champ manquant", "L'ID de l'employé est requis.");
-            return false;
-        }
-        try {
-            int employeId = Integer.parseInt(employeIdText.trim());
-            if (employeId <= 0) {
-                showAlert("Entrée invalide", "L'ID de l'employé doit être un nombre positif.");
-                return false;
-            }
-        } catch (NumberFormatException e) {
-            showAlert("Entrée invalide", "L'ID de l'employé doit être un nombre entier valide.");
+        Integer employeId = employeIdComboBox.getValue();
+        if (employeId == null) {
+            showAlert("Champ manquant", "Veuillez sélectionner un ID de l'employé.");
             return false;
         }
 
@@ -217,11 +217,11 @@ public class MarquerAbsenceController {
     }
 
     private void clearFields() {
-        employeIdField.clear();
+        employeIdComboBox.setValue(null);
         dateAbsencePicker.setValue(null);
         motifField.clear();
         justifieCheckBox.setSelected(false);
-        tableAbsence.getSelectionModel().clearSelection();
+        selectedAbsence = null; // Réinitialiser la sélection
     }
 
     private void showAlert(String title, String content) {

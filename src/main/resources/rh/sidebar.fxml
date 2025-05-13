@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="200.0" style="-fx-background-color: #528da0;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rh.Controller.Sidebar">
+   <children>
+      <ImageView fitHeight="102.0" fitWidth="200.0" layoutX="25.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="50.0" layoutY="112.0" prefHeight="18.0" prefWidth="117.0" text="Accueil " textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Button layoutY="93.0" mnemonicParsing="false" onAction="#goToAcceuil" prefHeight="59.0" prefWidth="200.0" style="-fx-background-color: transaparent;" />
+      <ImageView fitHeight="81.0" fitWidth="25.0" layoutX="2.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/accueil.png" />
+         </image>
+      </ImageView>
+      <Line endX="99.99996948242188" endY="-14.0" layoutX="100.0" layoutY="166.0" startX="-100.0000228881836" startY="-14.0" stroke="#083b50" />
+      <Button fx:id="btn" layoutY="162.0" mnemonicParsing="false" onAction="#goToUsers" prefHeight="49.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
+      <Label layoutX="29.0" layoutY="173.0" prefHeight="18.0" prefWidth="105.0" text="Les Utilisateurs" textFill="#fffbfb">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="25.0" fitWidth="48.0" layoutX="2.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/users.png" />
+         </image>
+      </ImageView>
+      <Button layoutY="223.0" mnemonicParsing="false" onAction="#GoToFormation" prefHeight="41.0" prefWidth="200.0" style="-fx-background-color: transaprent;" />
+      <Label layoutX="29.0" layoutY="234.0" text="Les Formations " textFill="#f5f5f5">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="25.0" fitWidth="48.0" layoutX="2.0" layoutY="231.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/Formation.png" />
+         </image>
+      </ImageView>
+      <Button layoutY="274.0" mnemonicParsing="false" onAction="#GoToDemandeDeCandidature" prefHeight="49.0" prefWidth="200.0" style="-fx-background-color: transaprent;" />
+      <Label layoutX="29.0" layoutY="291.0" text="Demandes de candidature" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="25.0" fitWidth="48.0" layoutX="-1.0" layoutY="288.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/candidature.png" />
+         </image>
+      </ImageView>
+      <Button layoutY="336.0" mnemonicParsing="false" onAction="#GoTopaiement" prefHeight="49.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
+      <Label layoutX="27.0" layoutY="351.0" text="les paiements" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="25.0" fitWidth="48.0" layoutX="1.0" layoutY="348.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/paiements.png" />
+         </image>
+      </ImageView>
+      <Button layoutY="395.0" mnemonicParsing="false" onAction="#GoToCongeAndAbsence" prefHeight="76.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
+      <Label layoutX="34.0" layoutY="406.0" prefHeight="41.0" prefWidth="150.0" text="les demandes d’absence et congés" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="28.0" fitWidth="48.0" layoutX="-1.0" layoutY="414.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/absenceCongés.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

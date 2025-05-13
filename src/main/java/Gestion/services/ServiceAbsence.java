@@ -97,6 +97,20 @@ public class ServiceAbsence implements IService<Absence> {
         return list;
     }
 
+    // Méthode corrigée pour récupérer les IDs d'employés depuis la table employe
+    public List<Integer> getEmployeIds() {
+        List<Integer> employeIds = new ArrayList<>();
+        String sql = "SELECT DISTINCT id FROM employe"; // Changé de "absence" à "employe"
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+                employeIds.add(rs.getInt("id"));
+            }
+        } catch (SQLException e) {
+            System.err.println("❌ Erreur lors du chargement des IDs d'employés : " + e.getMessage());
+        }
+        return employeIds;
+    }
+
     // Méthodes Console
     public void ajouterDepuisConsole(Scanner sc) {
         try {

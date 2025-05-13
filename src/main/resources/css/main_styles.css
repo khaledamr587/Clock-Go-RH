@@ -1,54 +1,116 @@
-.welcome-title {
+/* Default root styles */
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: linear-gradient(to bottom, #eef2f7, #dbe5f1);
+}
+.footer {
+    -fx-text-fill: #6B7280;
+}
+
+
+/* Card styles */
+.card {
+    -fx-background-color: white;
+    -fx-padding: 10px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-pref-width: 350px;
+}
+
+.card:hover {
+    -fx-background-color: #f0f0f0;
+    -fx-cursor: hand;
+}
+
+.selected-card {
+    -fx-border-color: #00A99D;
+    -fx-border-width: 2px;
+    -fx-background-color: #E6F0FA;
+}
+
+
+/* BOUTONS STANDARDS */
+.button {
+    -fx-background-color: #1A3C5A;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-background-radius: 10;
+    -fx-padding: 10 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 2, 2);
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #143048;
+}
+
+/* BOUTONS VERTS */
+.button-green {
+    -fx-background-color: #00A99D;
+}
+
+.button-green:hover {
+    -fx-background-color: #00897B;
+}
+
+/* Label styles */
+.label {
+    -fx-text-fill: #1A3C5A;
+}
+
+.title-main2 {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A3C5A;
+}
+.title-main1  {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-text-fill: #1A3C5A;
 }
 
-.menu-button {
-    -fx-background-color: #2A4B7C;
-    -fx-text-fill: #FFFFFF;
-    -fx-font-size: 14px;
-    -fx-background-radius: 5;
+/* CHART STYLING */
+.chart-pie {
+    -fx-pie-label-visible: true;
 }
 
-.footer {
-    -fx-text-fill: #6B7280;
-}
-
-.root {
-    -fx-background-color: #F5F7FA;
-}
-
-.button {
-    -fx-background-color: #2A4B7C;
-    -fx-text-fill: #FFFFFF;
-    -fx-font-size: 14px;
-    -fx-background-radius: 5;
-    -fx-padding: 5 10;
-}
-
-.button:default:hover {
-    -fx-background-color: #00A99D;
-}
-
-.button.green {
-    -fx-background-color: #28A745;
-}
-
-.button.green:hover {
-    -fx-background-color: #218838;
-}
-
-.table-view {
-    -fx-background-color: #FFFFFF;
-    -fx-border-color: #E5E7EB;
-    -fx-border-radius: 5;
-}
-
-.table-column {
-    -fx-alignment: CENTER;
-}
-
-.label {
+.chart-title {
+    -fx-font-size: 18px;
     -fx-text-fill: #1A3C5A;
+    -fx-label-padding: 30px;
 }
+
+/* PIE LABELS */
+.chart-pie-label {
+    -fx-fill: #1A3C5A;
+    -fx-font-weight: bold;
+}
+/* Pie Chart Colors */
+.leave-pie-chart .default-color0.chart-pie { -fx-pie-color: #2A4B7C; } /* Blue for "Restants" */
+.leave-pie-chart .default-color1.chart-pie { -fx-pie-color: #00A99D; } /* Green for "Utilisés" */
+.absence-pie-chart .default-color0.chart-pie { -fx-pie-color: #ff4d4d  ; } /* Blue for "Non Justifiées" */
+.absence-pie-chart .default-color1.chart-pie { -fx-pie-color: #00A99D; } /* Green for "Justifiées" */
+.custom-pie-chart .default-color0.chart-pie { -fx-pie-color: white; } /* Purple for first slice */
+.custom-pie-chart .default-color1.chart-pie { -fx-pie-color: #2A4B7C; } /* Red for second slice */
+.custom-pie-chart .default-color2.chart-pie { -fx-pie-color: #00A99D; } /* Yellow for third slice */
+/* VBOX SPACING */
+.vbox {
+    -fx-spacing: 25;
+    -fx-padding: 40;
+}
+
+.sidebar {
+    -fx-background-color: #f4f4f4;
+    -fx-padding: 20;
+    -fx-border-color: #dcdcdc;
+    -fx-border-width: 0 1 0 0;
+}
+
+.main-content {
+    -fx-background-color: white;
+}
+
+

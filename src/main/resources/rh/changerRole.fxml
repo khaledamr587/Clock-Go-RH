@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="180" prefWidth="300" style="-fx-background-color: transparent; -fx-border-radius: 40;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="rh.Controller.ChangerRoleController">
+    <VBox alignment="CENTER" layoutY="10.0" prefHeight="166.0" prefWidth="260.0" spacing="20" style="-fx-background-color: #e8e9e8; -fx-background-radius: 40;" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+        <Label prefHeight="50.0" prefWidth="206.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Choisir le nouveau rôle       de l'utilisateur" wrapText="true" />
+        <HBox alignment="CENTER" spacing="20">
+            <Button onAction="#handleEmploye" style="-fx-background-color: #083b50; -fx-background-radius: 20;" text="Employé" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font></Button>
+            <Button onAction="#handleComptable" style="-fx-background-color: #083b50; -fx-background-radius: 20;" text="Comptable" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font></Button>
+        </HBox>
+    </VBox>
+</AnchorPane>

@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
 
-<AnchorPane prefHeight="650" prefWidth="440" style="-fx-background-color: #F5F7FA;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="controllers.ValiderCongeController">
+<AnchorPane prefHeight="650" prefWidth="440" style="-fx-background-color: #F5F7FA;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22.0.2" fx:controller="controllers.ValiderCongeController">
     <stylesheets>
         <URL value="@../css/main_styles.css" />
     </stylesheets>
-    <VBox alignment="TOP_CENTER" layoutX="45.0" layoutY="61.0" spacing="10">
+    <VBox alignment="TOP_CENTER" layoutX="45.0" layoutY="61.0" prefWidth="350.0" spacing="15">
         <Label style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #1A3C5A;" text="Demandes de congés en cours" />
-        <HBox alignment="CENTER" spacing="10">
-            <TableView fx:id="tableConge" prefWidth="350" styleClass="table-view">
-                <columns>
-                    <TableColumn fx:id="colEmpId" prefWidth="80" text="Employé ID" />
-                    <TableColumn fx:id="colDebut" prefWidth="80" text="Début" />
-                    <TableColumn fx:id="colFin" prefWidth="80" text="Fin" />
-                    <TableColumn fx:id="colType" prefWidth="60" text="Type" />
-                    <TableColumn fx:id="colStatut" prefWidth="50" text="Statut" />
-                </columns>
-            </TableView>
-        </HBox>
-        <HBox alignment="CENTER" spacing="10">
-            <Button onAction="#accepterConge" styleClass="button green" text="Accepter" />
-            <Button onAction="#refuserConge" styleClass="button" text="Refuser" />
+        <ScrollPane prefHeight="400" prefWidth="350">
+            <VBox fx:id="cardContainer" spacing="10" />
+        </ScrollPane>
+        <HBox fx:id="buttonContainer" alignment="CENTER" spacing="10">
+            <Button fx:id="accepterCongeButton" onAction="#accepterConge" styleClass="button green" text="Accepter" minWidth="80" minHeight="30" />
+            <Button fx:id="refuserCongeButton" onAction="#refuserConge" styleClass="button" text="Refuser" minWidth="80" minHeight="30" />
+            <Button onAction="#exportToExcel" text="Exporter en Excel" styleClass="button" minWidth="80" minHeight="30" />
+            <Button onAction="#exportToPDF" text="Exporter en PDF" styleClass="button" minWidth="80" minHeight="30" />
+            <SVGPath fx:id="checkmark" content="M10 20l-5-5m5 5l5-5" visible="false" />
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
         </HBox>
     </VBox>
 </AnchorPane>

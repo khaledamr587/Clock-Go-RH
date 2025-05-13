@@ -6,13 +6,83 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.animation.FadeTransition;
+import javafx.util.Duration;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Alert;
+import javafx.scene.chart.PieChart;
+import Gestion.models.Conge;
+import Gestion.services.ServiceConge;
+
+import java.net.URL;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Main2Controller {
 
     @FXML
+    private VBox mainVBox;
+
+    @FXML
+    private Button themeToggleButton;
+
+    @FXML
+    private AnchorPane anchorPane;
+
+    @FXML
+    private PieChart leavePieChart;
+
+    private final ServiceConge serviceConge = new ServiceConge();
+
+    private boolean isDarkMode = false;
+
+    @FXML
+    public void initialize() {
+        // Animation fade-in
+        FadeTransition ft = new FadeTransition(Duration.millis(1000), mainVBox);
+        ft.setFromValue(0.0);
+        ft.setToValue(1.0);
+        ft.play();
+
+        updateLeavePieChart();
+    }
+
+    private void updateLeavePieChart() {
+        List<Conge> conges = serviceConge.afficher();
+
+        Map<String, Long> typeCounts = conges.stream()
+                .collect(Collectors.groupingBy(Conge::getType, Collectors.counting()));
+
+        leavePieChart.getData().clear();
+        for (Map.Entry<String, Long> entry : typeCounts.entrySet()) {
+            leavePieChart.getData().add(new PieChart.Data(entry.getKey(), entry.getValue()));
+        }
+    }
+
+    @FXML
+    public void toggleTheme() {
+        isDarkMode = !isDarkMode;
+        anchorPane.getStyleClass().removeAll("light", "dark");
+        if (isDarkMode) {
+            anchorPane.getStyleClass().add("dark");
+            themeToggleButton.setText("Switch to Light Mode");
+        } else {
+            anchorPane.getStyleClass().add("light");
+            themeToggleButton.setText("Switch to Dark Mode");
+        }
+    }
+
+    @FXML
     public void goToValiderConge() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/valider_conge.fxml"));
+            URL fxmlLocation = getClass().getResource("/fxml/valider_conge.fxml");
+            if (fxmlLocation == null) {
+                throw new RuntimeException("Fichier FXML 'valider_conge.fxml' non trouvé.");
+            }
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Valider les Congés");
@@ -28,7 +98,11 @@ public class Main2Controller {
     @FXML
     public void goToMarquerAbsence() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/marquer_absence.fxml"));
+            URL fxmlLocation = getClass().getResource("/fxml/marquer_absence.fxml");
+            if (fxmlLocation == null) {
+                throw new RuntimeException("Fichier FXML 'marquer_absence.fxml' non trouvé.");
+            }
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Marquer les Absences");
@@ -44,20 +118,16 @@ public class Main2Controller {
     private void setStageIcon(Stage stage) {
         try {
             Image icon = new Image(getClass().getResourceAsStream("/images/app-icon.png"));
-            if (icon.isError()) {
-                System.err.println("Icon loading failed: Image is invalid.");
-            } else {
+            if (!icon.isError()) {
                 stage.getIcons().add(icon);
             }
         } catch (Exception e) {
-            System.err.println("Failed to load icon: " + e.getMessage());
+            System.err.println("Erreur chargement icône : " + e.getMessage());
         }
     }
 
     private void showAlert(String title, String content) {
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
-                title.equals("Erreur") ? javafx.scene.control.Alert.AlertType.ERROR : javafx.scene.control.Alert.AlertType.INFORMATION
-        );
+        Alert alert = new Alert(title.equals("Erreur") ? Alert.AlertType.ERROR : Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);

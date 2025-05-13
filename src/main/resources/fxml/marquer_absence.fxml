@@ -4,25 +4,25 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.TextField?>
 <AnchorPane prefHeight="593.0" prefWidth="407.0" style="-fx-background-color: #F5F7FA;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MarquerAbsenceController">
     <stylesheets>
         <URL value="@../css/main_styles.css" />
     </stylesheets>
     <VBox alignment="CENTER" spacing="15" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
         <Label style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #1A3C5A;" text="Marquer une absence">
-         <VBox.margin>
-            <Insets top="20.0" />
-         </VBox.margin></Label>
-        <TextField fx:id="employeIdField" prefWidth="200" promptText="ID Employé" />
+            <VBox.margin>
+                <Insets top="20.0" />
+            </VBox.margin></Label>
+        <ComboBox fx:id="employeIdComboBox" prefWidth="200" promptText="ID Employé" />
         <DatePicker fx:id="dateAbsencePicker" prefWidth="200" promptText="Date d'absence" />
         <TextField fx:id="motifField" prefWidth="200" promptText="Motif" />
         <CheckBox fx:id="justifieCheckBox" text="Justifiée?" />
@@ -32,27 +32,19 @@
             <Button onAction="#supprimerAbsence" prefWidth="140.0" styleClass="button" text="Supprimer " />
             <Button onAction="#onRafraichirButtonClicked" prefWidth="140.0" styleClass="button" text="Rafraîchir" />
         </HBox>
-      <Label prefHeight="19.0" prefWidth="200.0" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #1A3C5A;" text="    Liste des absences">
-         <padding>
-            <Insets top="-3.0" />
-         </padding>
-      </Label>
+        <Label prefHeight="19.0" prefWidth="200.0" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #1A3C5A;" text="    Liste des absences">
+            <padding>
+                <Insets top="-3.0" />
+            </padding>
+        </Label>
         <HBox alignment="CENTER" prefHeight="283.0" prefWidth="386.0" spacing="10">
-            <TableView fx:id="tableAbsence" prefHeight="216.0" prefWidth="350" styleClass="table-view">
-                <columns>
-                    <TableColumn fx:id="colEmpId" prefWidth="80" text="Employé ID" />
-                    <TableColumn fx:id="colDate" prefWidth="100" text="Date" />
-                    <TableColumn fx:id="colMotif" prefWidth="80" text="Motif" />
-                    <TableColumn fx:id="colJustifie" prefWidth="90" text="Justifiée?" />
-                </columns>
-            <HBox.margin>
-               <Insets bottom="10.0" top="50.0" />
-            </HBox.margin>
-            </TableView>
-         <padding>
-            <Insets top="-50.0" />
-         </padding>
+            <ScrollPane prefHeight="216.0" prefWidth="350">
+                <VBox fx:id="cardContainer" spacing="10" />
+            </ScrollPane>
+            <padding>
+                <Insets top="-50.0" />
+            </padding>
         </HBox>
     </VBox>
-   <Label layoutX="-128.0" layoutY="320.0" text="Label" />
+    <Label layoutX="-128.0" layoutY="320.0" text="Label" />
 </AnchorPane>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rh.Controller.Login">
+   <children>
+      <AnchorPane prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: linear-gradient(to bottom, #fbe9cb, #fff3d4); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+         <children>
+            <ImageView fitHeight="220.0" fitWidth="280.0" layoutX="60.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/logo.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="50.0" layoutY="420.0" mnemonicParsing="false" onAction="#GoToRegister" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #083a52; -fx-background-radius: 25; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2); -fx-cursor: hand;" text="Créer un compte">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Label layoutX="110.0" layoutY="390.0" prefHeight="20.0" prefWidth="180.0" style="-fx-text-fill: #083b50; -fx-font-size: 12; -fx-font-weight: normal;" text="Pas de compte ?" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="462.0" layoutY="22.0" style="-fx-text-fill: #083b50; -fx-font-weight: bold;" text="Bienvenue">
+         <font>
+            <Font name="System Bold" size="48.0" />
+         </font>
+      </Label>
+      <Label layoutX="470.0" layoutY="150.0" style="-fx-text-fill: #083b50; -fx-font-weight: bold;" text="Se connecter">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Email" layoutX="450.0" layoutY="240.0" prefHeight="40.0" prefWidth="300.0" promptText="Email" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc; -fx-border-radius: 20; -fx-background-radius: 20; -fx-padding: 10; -fx-font-size: 14; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.0, 0, 2);" />
+      <TextField fx:id="pwd" layoutX="450.0" layoutY="310.0" prefHeight="40.0" prefWidth="300.0" promptText="Mot de passe" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc; -fx-border-radius: 20; -fx-background-radius: 20; -fx-padding: 10; -fx-font-size: 14; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.0, 0, 2);" />
+      <Label fx:id="emailcc" layoutX="450.0" layoutY="280.0" prefHeight="20.0" prefWidth="300.0" style="-fx-text-fill: #d32f2f; -fx-font-size: 12; -fx-font-weight: bold;" />
+      <Label fx:id="pwdcc" layoutX="450.0" layoutY="350.0" prefHeight="20.0" prefWidth="300.0" style="-fx-text-fill: #d32f2f; -fx-font-size: 12; -fx-font-weight: bold;" />
+      <Button layoutX="450.0" layoutY="390.0" mnemonicParsing="false" onAction="#connection" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #083a52; -fx-background-radius: 25; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2); -fx-cursor: hand;" text="Connexion">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="googleLoginButton" layoutX="450.0" layoutY="450.0" mnemonicParsing="false" onAction="#handleGoogleLogin" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #ffffff; -fx-border-color: #4285f4; -fx-border-width: 2; -fx-border-radius: 25; -fx-background-radius: 25; -fx-text-fill: #4285f4; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2); -fx-cursor: hand;" text="Se connecter avec Google">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Hyperlink layoutX="600.0" layoutY="360.0" onAction="#handleForgotPasswordAction" style="-fx-text-fill: #083b50; -fx-font-size: 12; -fx-border-color: transparent; -fx-cursor: hand;" text="Mot de passe oublié ?">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Hyperlink>
+      <Label fx:id="logincc" layoutX="450.0" layoutY="500.0" prefHeight="20.0" prefWidth="300.0" style="-fx-text-fill: #d32f2f; -fx-font-size: 12; -fx-font-weight: bold;" />
+   </children>
+</AnchorPane>
