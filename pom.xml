@@ -112,6 +112,29 @@
 
 
 
+
+
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+        <!-- ZXing JavaSE pour la conversion en BufferedImage -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>22.0.2</version>  <!-- ou la version JavaFX que vous utilisez -->
+        </dependency>
+
+
+
+
     </dependencies>
 
     <build>

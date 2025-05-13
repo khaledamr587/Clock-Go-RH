@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.PageAccueil" stylesheets="@styles/app.css">
+    <children>
+        <Button layoutX="20.0" layoutY="20.0" onAction="#ouvrirPageOffres" text="Gérer les offres" styleClass="button-common" />
+        <Button layoutX="20.0" layoutY="60.0" onAction="#ouvrirPageCandidatures" text="Gérer les candidatures" styleClass="button-common" />
+        <Button layoutX="417.0" layoutY="20.0" mnemonicParsing="false" onAction="#candidatparidoffre" text="Candidat par id-offre" styleClass="button-common button-right" />
+        <Button layoutX="417.0" layoutY="60.0" mnemonicParsing="false" onAction="#OffreparIDcandidat" text="Offre par id-candidat" styleClass="button-common button-right" />
+    </children>
+</AnchorPane>

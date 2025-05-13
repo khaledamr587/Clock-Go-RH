@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="500" prefWidth="600" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.CandidatparIDoffre"  stylesheets="@styles/app.css">
+
+    <children>
+        <VBox spacing="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10">
+
+            <!-- Champ de recherche -->
+            <HBox spacing="10">
+                <Label text="ID de l'Offre :" />
+                <TextField fx:id="idOffreField" promptText="Ex: 1" />
+                <Button onAction="#handleAfficherCandidats" text="Afficher Candidats" />
+                <Button mnemonicParsing="false" onAction="#RetourAceuil" text="Retour page d'acceuil" />
+            </HBox>
+
+            <!-- Titre de la section -->
+            <Label text="Liste des Candidats" styleClass="section-title" />
+
+            <!-- Conteneur scrollable de cartes -->
+            <ScrollPane fitToWidth="true" prefHeight="400">
+                <content>
+                    <VBox fx:id="cardContainer" spacing="10" />
+                </content>
+            </ScrollPane>
+        </VBox>
+    </children>
+</AnchorPane>

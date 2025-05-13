@@ -1,0 +1,112 @@
+/* Default root styles */
+.root {
+        -fx-background: #F5F7FA; /* Light mode background */
+        -fx-text-fill: #1A3C5A; /* Light mode text */
+}
+
+/* Dark mode styles */
+.root.dark {
+        -fx-background: #1A1A1A;
+        -fx-text-fill: #FFFFFF;
+}
+
+/* Card styles */
+.card {
+        -fx-background-color: white;
+        -fx-padding: 10px;
+        -fx-border-color: #e0e0e0;
+        -fx-border-width: 1px;
+        -fx-border-radius: 5px;
+        -fx-background-radius: 5px;
+        -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
+        -fx-pref-width: 550px;
+}
+
+.card:hover {
+        -fx-background-color: #f0f0f0;
+        -fx-cursor: hand;
+}
+
+.selected-card {
+        -fx-border-color: #4CAF50;
+        -fx-effect: dropshadow(three-pass-box, rgba(76, 175, 80, 0.4), 15, 0, 0, 2);
+        -fx-background-color: #e8f5e9;
+}
+
+/* Checkmark styles */
+#checkmark {
+        -fx-stroke: #008000;
+        -fx-stroke-width: 2;
+        -fx-fill: none;
+}
+
+/* Button styles */
+.button {
+        -fx-background-color: #2A4B7C;
+        -fx-text-fill: #FFFFFF;
+        -fx-font-size: 14px;
+        -fx-background-radius: 5px;
+        -fx-padding: 5px 10px;
+}
+
+.button.green {
+        -fx-background-color: #28A745;
+}
+
+.button.green:hover {
+        -fx-background-color: #218838;
+}
+
+/* Label styles */
+.label {
+        -fx-text-fill: inherit; /* Inherit from parent for theme support */
+}
+
+
+
+
+.welcome-title {
+        -fx-font-size: 18px;
+        -fx-font-weight: bold;
+        -fx-text-fill: #1A3C5A;
+}
+
+.menu-button {
+        -fx-background-color: #2A4B7C;
+        -fx-text-fill: #FFFFFF;
+        -fx-font-size: 14px;
+        -fx-background-radius: 5;
+}
+
+.footer {
+        -fx-text-fill: #6B7280;
+}
+
+.root {
+        -fx-background-color: #F5F7FA;
+}
+
+.button {
+        -fx-background-color: #2A4B7C;
+        -fx-text-fill: #FFFFFF;
+        -fx-font-size: 14px;
+        -fx-background-radius: 5;
+        -fx-padding: 5 10;
+}
+
+.button:default:hover {
+        -fx-background-color: #00A99D;
+}
+
+.button.green {
+        -fx-background-color: #28A745;
+}
+
+.button.green:hover {
+        -fx-background-color: #218838;
+}
+
+
+.label {
+        -fx-text-fill: #1A3C5A;
+}
