@@ -11,6 +11,7 @@
         <Label prefHeight="32.0" prefWidth="324.0" styleClass="title-main1" text="Vos congés et absences" />
         <Button onAction="#showCongeView" prefHeight="39.0" prefWidth="230" styleClass="button" text="Demander un Congé" />
         <Button onAction="#showAbsenceView" prefHeight="39.0" prefWidth="230" styleClass="button-green" text="Justifier une absence" />
+        <Button fx:id="btn" onAction="#goToHeader" prefHeight="39.0" prefWidth="230" styleClass="button-green" text="retour" />
         <Label styleClass="footer" text="© 2025 Gestion Congés et Absences" VBox.vgrow="ALWAYS" />
     </VBox>
     <VBox alignment="CENTER" spacing="20" styleClass="main-content" HBox.hgrow="ALWAYS">

@@ -16,6 +16,7 @@ import javafx.scene.chart.PieChart;
 import Gestion.models.Conge;
 import Gestion.services.ServiceConge;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -132,5 +133,19 @@ public class Main2Controller {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+    public void goToSidebar() throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/rh/acceuilAdmin.fxml"));
+            if (loader.getLocation() == null) {
+                throw new IOException("FXML file '/rh/acceuilAdmin.fxml' not found.");
+            }
+            Parent root = loader.load();
+            // Use the current button's scene to navigate back
+            anchorPane.getScene().setRoot(root);
+        } catch (IOException e) {
+            showAlert("Erreur", "Erreur lors du retour à la page d'accueil : " + e.getMessage());
+            throw e;
+        }
     }
 }

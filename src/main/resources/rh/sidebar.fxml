@@ -20,7 +20,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Button layoutY="93.0" mnemonicParsing="false" onAction="#goToAcceuil" prefHeight="59.0" prefWidth="200.0" style="-fx-background-color: transaparent;" />
+      <Button layoutY="93.0" mnemonicParsing="false" onAction="#goToAcceuil" prefHeight="59.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
       <ImageView fitHeight="81.0" fitWidth="25.0" layoutX="2.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@img/accueil.png" />
@@ -38,7 +38,7 @@
             <Image url="@img/users.png" />
          </image>
       </ImageView>
-      <Button layoutY="223.0" mnemonicParsing="false" onAction="#GoToFormation" prefHeight="41.0" prefWidth="200.0" style="-fx-background-color: transaprent;" />
+      <Button layoutY="223.0" mnemonicParsing="false" onAction="#GoToFormation" prefHeight="41.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
       <Label layoutX="29.0" layoutY="234.0" text="Les Formations " textFill="#f5f5f5">
          <font>
             <Font name="System Bold" size="13.0" />
@@ -49,8 +49,8 @@
             <Image url="@img/Formation.png" />
          </image>
       </ImageView>
-      <Button layoutY="274.0" mnemonicParsing="false" onAction="#GoToDemandeDeCandidature" prefHeight="49.0" prefWidth="200.0" style="-fx-background-color: transaprent;" />
-      <Label layoutX="29.0" layoutY="291.0" text="Demandes de candidature" textFill="WHITE">
+      <Button layoutY="274.0" mnemonicParsing="false" onAction="#GoToDemandeDeCandidature" prefHeight="49.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
+      <Label layoutX="29.0" layoutY="291.0" text="Recrutement et offres" textFill="WHITE">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -61,7 +61,7 @@
          </image>
       </ImageView>
       <Button layoutY="336.0" mnemonicParsing="false" onAction="#GoTopaiement" prefHeight="49.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
-      <Label layoutX="27.0" layoutY="351.0" text="les paiements" textFill="WHITE">
+      <Label layoutX="27.0" layoutY="351.0" text="Paie et autres" textFill="WHITE">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -71,7 +71,7 @@
             <Image url="@img/paiements.png" />
          </image>
       </ImageView>
-      <Button layoutY="395.0" mnemonicParsing="false" onAction="#GoToCongeAndAbsence" prefHeight="76.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
+      <Button layoutY="395.0" mnemonicParsing="false" onAction="#GoToMain2App" prefHeight="76.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
       <Label layoutX="34.0" layoutY="406.0" prefHeight="41.0" prefWidth="150.0" text="les demandes d’absence et congés" textFill="WHITE" wrapText="true">
          <font>
             <Font name="System Bold" size="13.0" />

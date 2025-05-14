@@ -28,6 +28,8 @@
 
             <Button text="Marquer les Absences" onAction="#goToMarquerAbsence"
                     prefHeight="39.0" prefWidth="230" styleClass="button-green" />
+            <Button text="Retour" onAction="#goToSidebar"
+                    prefHeight="39.0" prefWidth="230" styleClass="button-green" />
 
         </VBox>
 

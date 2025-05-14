@@ -14,6 +14,9 @@ import javafx.stage.Stage;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
+import javafx.event.ActionEvent; // Correct import
+import java.io.IOException;
 
 public class MainController {
 
@@ -25,6 +28,9 @@ public class MainController {
 
     @FXML
     private PieChart absencePieChart;
+
+    @FXML
+    private Button btn; // Annotated with @FXML
 
     private ServiceConge serviceConge;
     private ServiceAbsence serviceAbsence;
@@ -129,5 +135,20 @@ public class MainController {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    @FXML
+    public void goToHeader(ActionEvent actionEvent) throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/rh/profile.fxml"));
+            if (loader.getLocation() == null) {
+                throw new IOException("FXML file '/rh/profile.fxml' not found.");
+            }
+            Parent root = loader.load();
+            btn.getScene().setRoot(root);
+        } catch (IOException e) {
+            showAlert("Erreur", "Erreur lors du retour à la page d'accueil : " + e.getMessage());
+            throw e;
+        }
     }
 }

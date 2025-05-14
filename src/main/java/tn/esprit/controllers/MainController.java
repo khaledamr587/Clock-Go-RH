@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
@@ -14,6 +15,11 @@ public class MainController {
 
     @FXML
     private Button btnSalaires;
+
+
+    @FXML
+    private Button btnretour;
+
 
     @FXML
     private Button btnPrimes;
@@ -55,4 +61,27 @@ public class MainController {
             e.printStackTrace();
         }
     }
-} 
+    public void retour(ActionEvent actionEvent) throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/rh/AcceuilAdmin.fxml"));
+            if (loader.getLocation() == null) {
+                throw new IOException("FXML file '/rh/AcceuilAdmin.fxml' not found.");
+            }
+            Parent root = loader.load();
+            btnretour.getScene().setRoot(root);
+        } catch (IOException e) {
+            showAlert("Erreur", "Erreur lors du retour à la page d'accueil : " + e.getMessage());
+            throw e;
+        }
+    }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(
+                title.equals("Erreur") ? Alert.AlertType.ERROR : Alert.AlertType.INFORMATION
+        );
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+}

@@ -134,6 +134,19 @@
 
 
 
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.twilio.sdk</groupId>
+            <artifactId>twilio</artifactId>
+            <version>9.13.0</version>
+        </dependency>
+
+
+
 
     </dependencies>
 
@@ -163,7 +176,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>controllers.Main.Main2App</mainClass>
+                    <mainClass>rh.HelloApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
