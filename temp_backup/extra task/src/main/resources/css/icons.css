@@ -1,0 +1,20 @@
+.add-icon {
+    -fx-min-width: 16px;
+    -fx-min-height: 16px;
+    -fx-background-color: white;
+    -fx-shape: "M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z";
+}
+
+.users-icon {
+    -fx-min-width: 16px;
+    -fx-min-height: 16px;
+    -fx-background-color: white;
+    -fx-shape: "M16 17V19H2V17S2 13 9 13 16 17 16 17M12.5 7.5A3.5 3.5 0 1 0 9 11A3.5 3.5 0 0 0 12.5 7.5M15.94 13A5.32 5.32 0 0 1 18 17V19H22V17S22 13.37 15.94 13M15 4A3.39 3.39 0 0 0 13.07 4.59A5 5 0 0 1 13.07 10.41A3.39 3.39 0 0 0 15 11A3.5 3.5 0 0 0 15 4Z";
+}
+
+.refresh-icon {
+    -fx-min-width: 16px;
+    -fx-min-height: 16px;
+    -fx-background-color: white;
+    -fx-shape: "M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z";
+} 

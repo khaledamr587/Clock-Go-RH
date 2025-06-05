@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane fx:id="root" xmlns:fx="http://javafx.com/fxml"
+           fx:controller="controllers.EmployeeFormationsController"
+           stylesheets="@../css/unified_styles.css">
+    
+    <VBox spacing="20" alignment="TOP_CENTER">
+        <!-- Top Bar -->
+        <HBox spacing="10" styleClass="top-bar" alignment="CENTER_RIGHT">
+            <padding>
+                <Insets top="10" right="20" bottom="10" left="20"/>
+            </padding>
+            <Label text="Formations Disponibles" styleClass="app-title"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button text="Retour" onAction="#handleReturn" styleClass="button"/>
+        </HBox>
+
+        <VBox spacing="20" alignment="TOP_CENTER">
+            <padding>
+                <Insets top="20" right="30" bottom="20" left="30"/>
+            </padding>
+
+            <!-- Title -->
+            <Label text="Catalogue des Formations" styleClass="page-title"/>
+
+            <!-- Search Box -->
+            <HBox spacing="10" alignment="CENTER">
+                <TextField fx:id="searchField" promptText="Rechercher une formation..." prefWidth="300" />
+                <Button text="Rechercher" 
+                        onAction="#searchFormations" 
+                        styleClass="button"/>
+                <Button text="Réinitialiser" 
+                        onAction="#refreshCards" 
+                        styleClass="button"/>
+                <Button text="Mes Demandes" 
+                        onAction="#showMyRequests" 
+                        styleClass="button-green"/>
+            </HBox>
+
+            <!-- Cards Container -->
+            <VBox styleClass="card" VBox.vgrow="ALWAYS">
+                <ScrollPane fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS" styleClass="transparent-scroll-pane">
+                    <FlowPane fx:id="formationsContainer" hgap="20" vgap="20" alignment="CENTER" styleClass="formations-flow-pane">
+                        <padding>
+                            <Insets top="15" right="15" bottom="15" left="15"/>
+                        </padding>
+                    </FlowPane>
+                </ScrollPane>
+            </VBox>
+        </VBox>
+
+        <!-- Status Bar -->
+        <HBox styleClass="status-bar">
+            <padding>
+                <Insets top="5" right="10" bottom="5" left="10"/>
+            </padding>
+            <Label fx:id="statusLabel" text="Prêt" styleClass="status-label"/>
+        </HBox>
+    </VBox>
+</StackPane> 

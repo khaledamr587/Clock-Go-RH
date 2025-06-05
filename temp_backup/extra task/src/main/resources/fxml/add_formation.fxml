@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="Gestion.controllers.AddFormationController"
+           stylesheets="@../css/modern-style.css">
+    
+    <VBox spacing="20" alignment="TOP_CENTER">
+        <!-- Top Bar -->
+        <HBox spacing="10" styleClass="top-bar" alignment="CENTER_RIGHT">
+            <padding>
+                <Insets top="10" right="20" bottom="10" left="20"/>
+            </padding>
+            <Label text="Ajouter une Formation" styleClass="app-title"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button fx:id="closeButton" onAction="#closeWindow" styleClass="button">
+                <graphic>
+                    <FontAwesomeIconView glyphName="CLOSE" size="16" fill="WHITE"/>
+                </graphic>
+            </Button>
+        </HBox>
+
+        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="transparent-scroll-pane">
+            <VBox spacing="20" styleClass="card">
+                <padding>
+                    <Insets top="20" right="30" bottom="20" left="30"/>
+                </padding>
+
+                <Label text="Nouvelle Formation" styleClass="page-title"/>
+
+                <!-- Form Fields -->
+                <GridPane hgap="20" vgap="15">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="30" />
+                        <ColumnConstraints percentWidth="70" />
+                    </columnConstraints>
+
+                    <!-- Titre -->
+                    <Label text="Titre:" styleClass="title-main2" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                    <TextField fx:id="titreField" promptText="Titre de la formation" 
+                                  GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+                    <!-- Date Début -->
+                    <Label text="Date de début:" styleClass="title-main2" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                    <DatePicker fx:id="dateDebutPicker" promptText="Sélectionnez une date" 
+                               GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+                    <!-- Durée -->
+                    <Label text="Durée (jours):" styleClass="title-main2" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                    <TextField fx:id="dureeField" promptText="Nombre de jours" 
+                                  GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+                    <!-- Formateur -->
+                    <Label text="Formateur:" styleClass="title-main2" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+                    <ComboBox fx:id="formateurCombo" promptText="Sélectionnez un formateur" 
+                                 GridPane.rowIndex="3" GridPane.columnIndex="1" />
+
+                    <!-- Lieu -->
+                    <Label text="Lieu:" styleClass="title-main2" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+                    <TextField fx:id="lieuField" promptText="Lieu de la formation" 
+                                  GridPane.rowIndex="4" GridPane.columnIndex="1" />
+
+                    <!-- Places Max -->
+                    <Label text="Places max:" styleClass="title-main2" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+                    <TextField fx:id="placesMaxField" promptText="Nombre maximum de participants" 
+                                  GridPane.rowIndex="5" GridPane.columnIndex="1" />
+                </GridPane>
+
+                <!-- Description -->
+                <Label text="Description:" styleClass="title-main2"/>
+                <TextArea fx:id="descriptionArea" wrapText="true" promptText="Description de la formation" prefHeight="150"/>
+
+                <!-- Action Buttons -->
+                <HBox spacing="20" alignment="CENTER">
+                    <Button text="Enregistrer" onAction="#saveFormation" styleClass="button-green">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="SAVE" size="16" fill="WHITE"/>
+                        </graphic>
+                    </Button>
+                    <Button text="Annuler" onAction="#closeWindow" styleClass="button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="TIMES" size="16" fill="WHITE"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+                
+                <!-- Status message -->
+                <Label fx:id="statusLabel" styleClass="status-label" />
+            </VBox>
+        </ScrollPane>
+    </VBox>
+</StackPane> 

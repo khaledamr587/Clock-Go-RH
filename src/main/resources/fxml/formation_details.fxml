@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="Gestion.controllers.FormationDetailsController"
+           stylesheets="@../css/modern-style.css">
+    
+    <VBox spacing="20" alignment="TOP_CENTER">
+        <!-- Top Bar -->
+        <HBox spacing="10" styleClass="top-bar" alignment="CENTER_RIGHT">
+            <padding>
+                <Insets top="10" right="20" bottom="10" left="20"/>
+            </padding>
+            <Label text="Détails de la Formation" styleClass="app-title"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button fx:id="closeButton" onAction="#closeWindow" styleClass="button">
+                <graphic>
+                    <FontAwesomeIconView glyphName="CLOSE" size="16" fill="WHITE"/>
+                </graphic>
+            </Button>
+        </HBox>
+
+        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="transparent-scroll-pane">
+            <VBox spacing="20" styleClass="card">
+                <padding>
+                    <Insets top="20" right="30" bottom="20" left="30"/>
+                </padding>
+
+                <!-- Formation Title -->
+                <Label fx:id="titleLabel" styleClass="page-title"/>
+
+                <!-- Main Information -->
+                <GridPane hgap="20" vgap="15">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="30" />
+                        <ColumnConstraints percentWidth="70" />
+                    </columnConstraints>
+
+                    <!-- Date -->
+                    <Label text="Date de début:" styleClass="title-main2" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                    <HBox spacing="10" GridPane.rowIndex="0" GridPane.columnIndex="1" alignment="CENTER_LEFT">
+                        <FontAwesomeIconView glyphName="CALENDAR" size="16" />
+                        <Label fx:id="dateLabel" />
+                    </HBox>
+
+                    <!-- Duration -->
+                    <Label text="Durée:" styleClass="title-main2" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                    <HBox spacing="10" GridPane.rowIndex="1" GridPane.columnIndex="1" alignment="CENTER_LEFT">
+                        <FontAwesomeIconView glyphName="CLOCK_ALT" size="16" />
+                        <Label fx:id="durationLabel" />
+                    </HBox>
+
+                    <!-- Location -->
+                    <Label text="Lieu:" styleClass="title-main2" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                    <HBox spacing="10" GridPane.rowIndex="2" GridPane.columnIndex="1" alignment="CENTER_LEFT">
+                        <FontAwesomeIconView glyphName="MAP_MARKER" size="16" />
+                        <Label fx:id="locationLabel" />
+                    </HBox>
+
+                    <!-- Places -->
+                    <Label text="Places maximales:" styleClass="title-main2" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+                    <HBox spacing="10" GridPane.rowIndex="3" GridPane.columnIndex="1" alignment="CENTER_LEFT">
+                        <FontAwesomeIconView glyphName="USERS" size="16" />
+                        <Label fx:id="placesLabel" />
+                    </HBox>
+
+                    <!-- Trainer -->
+                    <Label text="Formateur:" styleClass="title-main2" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+                    <HBox spacing="10" GridPane.rowIndex="4" GridPane.columnIndex="1" alignment="CENTER_LEFT">
+                        <FontAwesomeIconView glyphName="USER" size="16" />
+                        <Label fx:id="trainerLabel" />
+                    </HBox>
+                </GridPane>
+
+                <!-- Description -->
+                <Label text="Description" styleClass="title-main2"/>
+                <TextArea fx:id="descriptionArea" wrapText="true" editable="false" prefHeight="150"/>
+
+                <!-- Action Buttons -->
+                <HBox spacing="20" alignment="CENTER">
+                    <Button fx:id="registerButton" text="S'inscrire" styleClass="button-green">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="CHECK_CIRCLE" size="16" fill="WHITE"/>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="editButton" text="Modifier" styleClass="button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="EDIT" size="16" fill="WHITE"/>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="deleteButton" text="Supprimer" styleClass="button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="TRASH" size="16" fill="WHITE"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </VBox>
+</StackPane> 

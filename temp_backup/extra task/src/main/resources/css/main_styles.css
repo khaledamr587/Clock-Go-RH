@@ -1,0 +1,54 @@
+.welcome-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A3C5A;
+}
+
+.menu-button {
+    -fx-background-color: #2A4B7C;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14px;
+    -fx-background-radius: 5;
+}
+
+.footer {
+    -fx-text-fill: #6B7280;
+}
+
+.root {
+    -fx-background-color: #F5F7FA;
+}
+
+.button {
+    -fx-background-color: #2A4B7C;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14px;
+    -fx-background-radius: 5;
+    -fx-padding: 5 10;
+}
+
+.button:default:hover {
+    -fx-background-color: #00A99D;
+}
+
+.button.green {
+    -fx-background-color: #28A745;
+}
+
+.button.green:hover {
+    -fx-background-color: #218838;
+}
+
+.table-view {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E5E7EB;
+    -fx-border-radius: 5;
+}
+
+.table-column {
+    -fx-alignment: CENTER;
+}
+
+.label {
+    -fx-text-fill: #1A3C5A;
+}
