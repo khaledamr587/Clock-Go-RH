@@ -27,6 +27,26 @@ public class MyDataBase {
     }
 
     public Connection getConnection() {
+        try {
+            // Check if connection is closed or invalid
+            if (connection == null || connection.isClosed()) {
+                System.out.println("Connection was closed, reconnecting...");
+                connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                System.out.println("Reconnection successful!");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error checking/reconnecting to database: " + e.getMessage());
+            e.printStackTrace();
+            
+            // Try to create a new connection
+            try {
+                connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                System.out.println("New connection established!");
+            } catch (SQLException ex) {
+                System.err.println("Failed to create new connection: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
         return connection;
     }
 }

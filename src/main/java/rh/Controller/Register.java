@@ -65,7 +65,7 @@ public class Register {
     @FXML
     void handleGoogleRegister(ActionEvent event) {
         try {
-            InputStream in = getClass().getResourceAsStream("/resources/client_secret.json");
+            InputStream in = getClass().getResourceAsStream("/client_secrets.json");
             if (in == null) {
                 registercc.setText("client_secrets.json not found in resources.");
                 return;

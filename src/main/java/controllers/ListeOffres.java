@@ -68,9 +68,17 @@ public class ListeOffres implements Initializable {
 
 
     @FXML
-    void Fermer(ActionEvent event) {
-        ((Stage)((Node)event.getSource()).getScene().getWindow()).close();
-
+    void retourLogin(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/rh/login.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Erreur lors du retour à la page de connexion: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /** Ouvre le formulaire de candidature pour l'offre sélectionnée */

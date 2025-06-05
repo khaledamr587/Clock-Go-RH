@@ -63,9 +63,11 @@ public class MainController {
     }
     public void retour(ActionEvent actionEvent) throws IOException {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/rh/AcceuilAdmin.fxml"));
+            // Load the acceuil.fxml which will automatically show the appropriate header
+            // based on the user's role (comptable)
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/rh/acceuil.fxml"));
             if (loader.getLocation() == null) {
-                throw new IOException("FXML file '/rh/AcceuilAdmin.fxml' not found.");
+                throw new IOException("FXML file '/rh/acceuil.fxml' not found.");
             }
             Parent root = loader.load();
             btnretour.getScene().setRoot(root);

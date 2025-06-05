@@ -60,12 +60,24 @@ public class PageAccueil {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/OffreparIDcandidat.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setTitle("Candidat par ID offre");
+            stage.setTitle("Offre par ID candidat");
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             System.out.println("erreur de l'ouvrirPageCandidatures"+e.getMessage());
         }
+    }
 
+    @FXML
+    void retourAdmin(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/rh/acceuilAdmin.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("Tableau de bord administrateur");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Erreur lors du retour au tableau de bord admin: " + e.getMessage());
+        }
     }
 }

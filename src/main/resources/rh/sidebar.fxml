@@ -49,7 +49,7 @@
             <Image url="@img/Formation.png" />
          </image>
       </ImageView>
-      <Button layoutY="274.0" mnemonicParsing="false" onAction="#GoToDemandeDeCandidature" prefHeight="49.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
+      <Button fx:id="btn2" layoutY="274.0" mnemonicParsing="false" onAction="#GoToDemandeDeCandidature" prefHeight="49.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
       <Label layoutX="29.0" layoutY="291.0" text="Recrutement et offres" textFill="WHITE">
          <font>
             <Font name="System Bold" size="13.0" />
@@ -60,24 +60,13 @@
             <Image url="@img/candidature.png" />
          </image>
       </ImageView>
-      <Button layoutY="336.0" mnemonicParsing="false" onAction="#GoTopaiement" prefHeight="49.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
-      <Label layoutX="27.0" layoutY="351.0" text="Paie et autres" textFill="WHITE">
+      <Button layoutY="336.0" mnemonicParsing="false" onAction="#GoToMain2App" prefHeight="49.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
+      <Label layoutX="29.0" layoutY="351.0" prefHeight="41.0" prefWidth="150.0" text="Absences et congés" textFill="WHITE" wrapText="true">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
       <ImageView fitHeight="25.0" fitWidth="48.0" layoutX="1.0" layoutY="348.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@img/paiements.png" />
-         </image>
-      </ImageView>
-      <Button layoutY="395.0" mnemonicParsing="false" onAction="#GoToMain2App" prefHeight="76.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
-      <Label layoutX="34.0" layoutY="406.0" prefHeight="41.0" prefWidth="150.0" text="les demandes d’absence et congés" textFill="WHITE" wrapText="true">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="28.0" fitWidth="48.0" layoutX="-1.0" layoutY="414.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@img/absenceCongés.png" />
          </image>

@@ -88,14 +88,21 @@
     -fx-fill: #1A3C5A;
     -fx-font-weight: bold;
 }
-/* Pie Chart Colors */
-.leave-pie-chart .default-color0.chart-pie { -fx-pie-color: #2A4B7C; } /* Blue for "Restants" */
-.leave-pie-chart .default-color1.chart-pie { -fx-pie-color: #00A99D; } /* Green for "Utilisés" */
-.absence-pie-chart .default-color0.chart-pie { -fx-pie-color: #ff4d4d  ; } /* Blue for "Non Justifiées" */
-.absence-pie-chart .default-color1.chart-pie { -fx-pie-color: #00A99D; } /* Green for "Justifiées" */
-.custom-pie-chart .default-color0.chart-pie { -fx-pie-color: white; } /* Purple for first slice */
-.custom-pie-chart .default-color1.chart-pie { -fx-pie-color: #2A4B7C; } /* Red for second slice */
-.custom-pie-chart .default-color2.chart-pie { -fx-pie-color: #00A99D; } /* Yellow for third slice */
+
+/* Pie Chart Colors - Updated to match screenshots */
+/* Consultation page - Congés Restants vs total chart */
+.leave-pie-chart .default-color0.chart-pie { -fx-pie-color: #2A4B7C; } /* Dark blue for "Restants" */
+.leave-pie-chart .default-color1.chart-pie { -fx-pie-color: #f0f0f0; } /* Light gray for "Utilisés" */
+
+/* Consultation page - Absences Non Justifiées chart */
+.absence-pie-chart .default-color0.chart-pie { -fx-pie-color: #f05454; } /* Red for "Non Justifiées" */
+.absence-pie-chart .default-color1.chart-pie { -fx-pie-color: #00A99D; } /* Teal for "Justifiées" */
+
+/* Gestion page - Types de congés chart */
+.custom-pie-chart .default-color0.chart-pie { -fx-pie-color: #f0f0f0; } /* Light gray/white for "Maladie" */
+.custom-pie-chart .default-color1.chart-pie { -fx-pie-color: #2A4B7C; } /* Dark blue for "Annuel" */
+.custom-pie-chart .default-color2.chart-pie { -fx-pie-color: #00A99D; } /* Teal for "Sans solde" */
+
 /* VBOX SPACING */
 .vbox {
     -fx-spacing: 25;

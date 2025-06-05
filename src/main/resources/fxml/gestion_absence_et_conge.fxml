@@ -16,30 +16,54 @@
     <HBox spacing="20" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 
-        <!-- Sidebar -->
+        <!-- Left sidebar -->
         <VBox fx:id="sidebar" prefWidth="280" alignment="TOP_CENTER" spacing="25"
-              style="-fx-background-color: #F5F7FA; -fx-padding: 30;">
+              style="-fx-background-color: white; -fx-padding: 30;">
             <Label text="Congés et absences"
                    styleClass="title-main2" />
 
-            <!-- Button with default .button style -->
+            <!-- Valider les congés button (blue) -->
             <Button text="Valider les congés" onAction="#goToValiderConge"
                     prefHeight="39.0" prefWidth="230" styleClass="button" />
 
+            <!-- Marquer les Absences button (teal) -->
             <Button text="Marquer les Absences" onAction="#goToMarquerAbsence"
                     prefHeight="39.0" prefWidth="230" styleClass="button-green" />
+                    
+            <!-- Retour button (teal) -->
             <Button text="Retour" onAction="#goToSidebar"
                     prefHeight="39.0" prefWidth="230" styleClass="button-green" />
-
         </VBox>
 
-
-        <!-- Main content area -->
+        <!-- Main content area with pie chart -->
         <StackPane fx:id="mainContent" alignment="CENTER" HBox.hgrow="ALWAYS"
                    style="-fx-background-color: white;">
+            <VBox alignment="CENTER">
+                <Label text="Répartition des types de congés" 
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 0 0 20 0;"/>
+                       
             <PieChart fx:id="leavePieChart" prefWidth="500" prefHeight="400"
-                      title="Répartition des types de congés"
-                      styleClass="custom-pie-chart" />
+                      legendVisible="true" 
+                      styleClass="custom-pie-chart">
+                      <!-- PieChart data will be set in the controller -->
+                </PieChart>
+                
+                <!-- Legend at the bottom -->
+                <HBox alignment="CENTER" spacing="20" style="-fx-padding: 20 0 0 0;">
+                    <HBox alignment="CENTER" spacing="5">
+                        <Region prefWidth="15" prefHeight="15" style="-fx-background-color: #f0f0f0;"/>
+                        <Label text="Maladie"/>
+                    </HBox>
+                    <HBox alignment="CENTER" spacing="5">
+                        <Region prefWidth="15" prefHeight="15" style="-fx-background-color: #2A4B7C;"/>
+                        <Label text="Annuel"/>
+                    </HBox>
+                    <HBox alignment="CENTER" spacing="5">
+                        <Region prefWidth="15" prefHeight="15" style="-fx-background-color: #00A99D;"/>
+                        <Label text="Sans solde"/>
+                    </HBox>
+                </HBox>
+            </VBox>
         </StackPane>
     </HBox>
 </AnchorPane>

@@ -57,4 +57,29 @@ public class AcceuilAdmin implements Initializable{
         }
     }
 
+    @FXML
+    public void goToRecruitment(ActionEvent event) throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/rh/PageAccueil.fxml"));
+            if (loader.getLocation() == null) {
+                throw new IOException("FXML file not found. Trying alternative path...");
+            }
+            Parent root = loader.load();
+            vbox.getScene().setRoot(root);
+        } catch (IOException e) {
+            // Try alternative path
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/PageAccueil.fxml"));
+                if (loader.getLocation() == null) {
+                    throw new IOException("FXML file not found in any location");
+                }
+                Parent root = loader.load();
+                vbox.getScene().setRoot(root);
+            } catch (IOException e2) {
+                System.err.println("Error loading recruitment page: " + e2.getMessage());
+                throw e2;
+            }
+        }
+    }
+
 }

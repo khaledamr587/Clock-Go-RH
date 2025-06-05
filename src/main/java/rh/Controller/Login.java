@@ -60,7 +60,7 @@ public class Login {
     @FXML
     void handleGoogleLogin(ActionEvent event) {
         try {
-            InputStream in = getClass().getResourceAsStream("/resources/client_secrets.json");
+            InputStream in = getClass().getResourceAsStream("/client_secrets.json");
             if (in == null) {
                 logincc.setText("client_secrets.json not found in resources.");
                 return;
@@ -114,6 +114,16 @@ public class Login {
     }
 
     public void connection(ActionEvent actionEvent) throws SQLException, IOException {
+        // Check if both fields are empty - Guest login case
+        if (Email.getText().isEmpty() && pwd.getText().isEmpty()) {
+            // Guest login - go to listeOffres.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/listeOffres.fxml"));
+            Parent root = loader.load();
+            Email.getScene().setRoot(root);
+            return;
+        }
+        
+        // Normal login flow
         int t = 0;
         if (Email.getText().isEmpty()) {
             t = 1;

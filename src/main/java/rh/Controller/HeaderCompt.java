@@ -30,5 +30,13 @@ public class HeaderCompt {
     }
 
     public void GoToSalaire(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MainView.fxml"));
+            Parent root = loader.load();
+            btn.getScene().setRoot(root);
+        } catch (IOException e) {
+            System.err.println("Error loading MainView.fxml: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
